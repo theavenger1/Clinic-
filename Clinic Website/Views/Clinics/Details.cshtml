@@ -1,0 +1,130 @@
+﻿@model Clinic_Website.Models.Clinic
+@using Clinic_Website.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Clinic</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicDescription)
+        </dt>
+
+        <dd>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.DisplayFor(model => model.ClinicDescription).ToString()))
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicImage)
+        </dt>
+
+        <dd>
+            <img src="~/Uploads/@Html.DisplayFor(model => model.ClinicImage)"
+                 class="thumbnail"
+                 style="width:48px; height:48px;" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppointmentLength)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppointmentLength)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Model.StartTime.GetDisplayName())
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+
+        <dd>
+            @Model.EndTime.GetDisplayName())
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MobileNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MobileNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DayLists)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DayLists.Count)
+        </dd>
+
+
+
+
+        <dt>
+            Location
+        </dt>
+
+        <dd>
+            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=@Convert.ToString(Model.Latitude, new System.Globalization.CultureInfo("en-US"))%20%20+@Convert.ToString(Model.Longitude , new System.Globalization.CultureInfo("en-US"))&key=AIzaSyBDV8rIV9awqVrrzv33NjfB1ekE_5UNgZk" allowfullscreen></iframe>
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
