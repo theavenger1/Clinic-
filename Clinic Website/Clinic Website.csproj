@@ -227,9 +227,18 @@
     <Compile Include="Migrations\202006281521263_cli.Designer.cs">
       <DependentUpon>202006281521263_cli.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006290747471_Appointment data.cs" />
+    <Compile Include="Migrations\202006290747471_Appointment data.Designer.cs">
+      <DependentUpon>202006290747471_Appointment data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006290907255_add avaialble timelist.cs" />
+    <Compile Include="Migrations\202006290907255_add avaialble timelist.Designer.cs">
+      <DependentUpon>202006290907255_add avaialble timelist.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
+    <Compile Include="Models\AvailableTimesList.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Clinic.cs" />
     <Compile Include="Models\ContactModel.cs" />
@@ -701,6 +710,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006281521263_cli.resx">
       <DependentUpon>202006281521263_cli.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006290747471_Appointment data.resx">
+      <DependentUpon>202006290747471_Appointment data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006290907255_add avaialble timelist.resx">
+      <DependentUpon>202006290907255_add avaialble timelist.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,13 +15,7 @@ namespace Clinic_Website.Controllers
                 db = new ApplicationDbContext();
             }
  
-    public void Maintain()
-        {
-            
-
-
-
-        }
+    
 
 
         // GET: TimeList

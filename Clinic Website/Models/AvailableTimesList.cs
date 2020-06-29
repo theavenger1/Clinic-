@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
+
 using System.Web;
- 
 
 namespace Clinic_Website.Models
 {
-    public class DayList
+    public class AvailableTimesList
     {
+
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [ForeignKey("Clinic")]
-        public int ClinicId { get; set; }
-        public virtual Clinic Clinic { get; set; }
 
+        [ForeignKey("DayList")]
+        public int DayListId { get; set; }
+        public virtual DayList DayList{ get; set; }
 
-        public virtual Days  DayName { get; set; }
-
-        public virtual ICollection<AvailableTimesList> AvailableTimes { get; set; }
-
+        [Display(Name = "Appointment Start")]
+        public TimeSlots Slot_start { get; set; }
 
     }
 }

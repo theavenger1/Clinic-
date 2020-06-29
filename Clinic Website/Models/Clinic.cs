@@ -69,8 +69,8 @@ namespace Clinic_Website.Models
 
         public virtual ICollection<TimeSlotList> TimeSlotLists { get; set; }
 
+    
 
- 
         public virtual Category Category { get; set; }
         public virtual ApplicationUser user { get; set; }
     }

@@ -85,12 +85,43 @@ namespace Clinic_Website.Controllers
                 //   allAPP.Add((TimeSlots)i);
 
                 TimeSlotList timeSlotList = new TimeSlotList { ClinicId = c.Id, Slot_start = (TimeSlots)i, Length = c.AppointmentLength };
-
-                db.TimeSlotLists.Add(timeSlotList);
-            
-
+                            db.TimeSlotLists.Add(timeSlotList);
+ 
+    
+     
             }
             db.SaveChanges();
+        }
+
+        private void ProduceAvaApp(Clinic c) {
+
+
+            var avadays = c.DayLists.ToList();
+            //var model = from r in db.DayLists
+            //            where r.ClinicId == c.Id
+
+            //            select r;
+            //var x = model.ToList();
+
+            var avatimesolts = c.TimeSlotLists.ToList();
+
+            var model = from r in db.Appointments
+                        where r.ClinicId == c.Id
+
+                        select r;
+            var appointments = model.ToList();
+
+            var x = new List<TimeSlots>();
+
+         //   if (appointments == null) { return }
+            foreach (var item in appointments)
+            {
+              //  if item.TimeStart!=avatimesolts
+                
+
+            }
+
+
         }
 
         public ActionResult Edit(int? id)

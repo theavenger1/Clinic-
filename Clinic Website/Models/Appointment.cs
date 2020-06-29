@@ -17,11 +17,14 @@ namespace Clinic_Website.Models
         //Entered by doctor 
         public String Prescription { get; set; }
 
-         
 
-        public string TimeStart { get; set; }
+        [Display(Name = "Day of Appointment")]
+        public Days DayofApp { get; set; }
 
-        //not entered at creation ( don't pu
+        [Display(Name = "Time of Appointment")]
+        public TimeSlots TimeStart { get; set; }
+
+        //not entered at creation 
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Display(Name ="Date Created")]

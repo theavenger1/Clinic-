@@ -68,25 +68,34 @@ namespace Clinic_Website.Controllers
 
 
         [HttpPost]
-        public ActionResult Create(DayList d , FormCollection f)
+        public ActionResult Create(DayList d, FormCollection f)
         {
             string clinicid = f["Clinics"].ToString();
-
             if (clinicid == null) { return new HttpStatusCodeResult(HttpStatusCode.BadRequest); }
+
+
+            d.ClinicId = int.Parse(clinicid);
+            var c = db.Clinics.Find(d.ClinicId);
+
             if (ModelState.IsValid)
             {
 
-               d.ClinicId = int.Parse(clinicid);
-                db.DayLists.Add(d);        
 
-                
+                db.DayLists.Add(d);
+                for (int i = (int)c.StartTime; i < (int)c.EndTime; i++)
+                {
+                    AvailableTimesList availableTimes = new AvailableTimesList { DayListId = d.Id, Slot_start = (TimeSlots)i };
+
+                    db.AvailableTimesLists.Add(availableTimes);
+
+                }
+
                 db.SaveChanges();
-
-               
-
 
                 return RedirectToAction("YourclinicDaylist");
             }
+
+
             return View();
         }
 
