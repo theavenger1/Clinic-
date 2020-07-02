@@ -177,6 +177,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
+    <Compile Include="Controllers\AppStatusController.cs" />
+    <Compile Include="Controllers\AvailableTSController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ClinicsController.cs" />
     <Compile Include="Controllers\DaylistController.cs" />
@@ -234,6 +237,18 @@
     <Compile Include="Migrations\202006290907255_add avaialble timelist.cs" />
     <Compile Include="Migrations\202006290907255_add avaialble timelist.Designer.cs">
       <DependentUpon>202006290907255_add avaialble timelist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006291149573_taken.cs" />
+    <Compile Include="Migrations\202006291149573_taken.Designer.cs">
+      <DependentUpon>202006291149573_taken.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007010919319_A.cs" />
+    <Compile Include="Migrations\202007010919319_A.Designer.cs">
+      <DependentUpon>202007010919319_A.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007011228059_sa.cs" />
+    <Compile Include="Migrations\202007011228059_sa.Designer.cs">
+      <DependentUpon>202007011228059_sa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -679,6 +694,12 @@
     <Content Include="Views\Daylist\Index.cshtml" />
     <Content Include="Views\Daylist\YourclinicDaylist.cshtml" />
     <Content Include="Views\TimeList\Index.cshtml" />
+    <Content Include="Views\Appointment\Create.cshtml" />
+    <Content Include="Views\AppStatus\Create.cshtml" />
+    <Content Include="Views\AppStatus\Index.cshtml" />
+    <Content Include="Views\AvailableTS\Index.cshtml" />
+    <Content Include="Views\Appointment\Index.cshtml" />
+    <Content Include="Views\Appointment\MyAppointments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002071433359_ClinicWebsiteData.resx">
@@ -716,6 +737,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006290907255_add avaialble timelist.resx">
       <DependentUpon>202006290907255_add avaialble timelist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006291149573_taken.resx">
+      <DependentUpon>202006291149573_taken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007010919319_A.resx">
+      <DependentUpon>202007010919319_A.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007011228059_sa.resx">
+      <DependentUpon>202007011228059_sa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

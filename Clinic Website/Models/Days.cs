@@ -11,7 +11,7 @@ namespace Clinic_Website.Models
     {
         [Display(Name ="Saturday")]
         
-        saturdasssss = 1,
+        Saturday = 1,
 
         [Display(Name = "Sunday")]
         Sunday,

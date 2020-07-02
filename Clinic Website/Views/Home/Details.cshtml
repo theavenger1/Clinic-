@@ -1,5 +1,5 @@
 ﻿@model Clinic_Website.Models.Clinic
-
+@using Clinic_Website.Models
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
@@ -10,6 +10,16 @@
 <div>
     <h4>clinic</h4>
     <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="alert alert-info">
+        @{ if (ViewBag.Result != null)
+            {
+                <h3>@ViewBag.Result</h3> } }
+
+
+    </div>
+
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Category.CategoryName)
@@ -34,7 +44,63 @@
         <dd>
             @Html.DisplayFor(model => model.ClinicDescription)
         </dd>
-      
+        <dt>
+            Available Appointments
+        </dt>
+
+        <dd>
+
+            <div>
+                @{
+                    for (int i = 0; i < 4; i++)
+                    {
+                        @: <div>
+                            @DateTime.Now.AddDays(i).ToString("dddd, dd MMMM yyyy");
+                        @:   </div>
+
+
+
+
+
+
+                        var o = Model.DayLists.ToList().Find(x => x.DayName.GetDisplayName() == DateTime.Now.AddDays(i).DayOfWeek.ToString());
+
+
+                        if (o != null)
+                        {
+
+                            <div>
+                                @foreach (var item1 in o.AvailableTimes.ToList())
+                                {
+
+
+                                    if (item1.Taken == false)
+                                    {
+                                        @Html.ActionLink(item1.Slot_start.GetDisplayName(), "Create", "Appointment", new { date = @DateTime.Today.AddDays(i), time = item1.Slot_start, Id = item1.DayList.Clinic.Id, time1=item1.Id }, htmlAttributes: new { @class = "" });@:
+                                        @:
+                                    }
+                                }
+                            </div>
+
+                        }
+
+                        else
+                        {
+
+                            @: Not Available
+                        }
+
+                    }
+                }
+
+            </div>
+
+
+        </dd>
+
+
+
+
         <dt>
             @Html.DisplayNameFor(model => model.ClinicImage)
         </dt>
@@ -58,7 +124,7 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Apply to Clinic", "Apply", new { id = Model.Id },new {@class= "btn btn-success" }) |
-    @Html.ActionLink("back to home", "Index")
-</p>
+    <p>
+       
+        @Html.ActionLink("back to home", "Index")
+    </p>

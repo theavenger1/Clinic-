@@ -21,6 +21,8 @@ namespace Clinic_Website.Models
         public int DayListId { get; set; }
         public virtual DayList DayList{ get; set; }
 
+        public bool Taken { get; set; }
+
         [Display(Name = "Appointment Start")]
         public TimeSlots Slot_start { get; set; }
 

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Clinic_Website.Models.Appointment>
+
+@{
+    ViewBag.Title = "MyAppointments";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>MyAppointments</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="alert alert-info">
+    @{ if (ViewBag.Result != null)
+        {
+            <h3>@ViewBag.Result</h3> } }
+
+
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentStatus.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clinic.ClinicName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientState.StateName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DayofApp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date_Created)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentStatus.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clinic.ClinicName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientState.StateName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DayofApp)
+            </td>
+            <td>
+                @item.DayofApp.ToString("dddd, dd MMMM yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Created)
+            </td>
+            <td>
+                @Html.ActionLink("Cancel", "Cancel", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

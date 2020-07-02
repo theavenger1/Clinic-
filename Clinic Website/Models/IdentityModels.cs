@@ -77,5 +77,9 @@ namespace Clinic_Website.Models
                       .HasForeignKey(m => m.userId)
                       .WillCascadeOnDelete(false);
         }
+
+        public System.Data.Entity.DbSet<Clinic_Website.Models.AppointmentStatus> AppointmentStatus { get; set; }
+
+        public System.Data.Entity.DbSet<Clinic_Website.Models.PatientState> PatientStates { get; set; }
     }
 }

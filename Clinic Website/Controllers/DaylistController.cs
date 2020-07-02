@@ -71,11 +71,15 @@ namespace Clinic_Website.Controllers
         public ActionResult Create(DayList d, FormCollection f)
         {
             string clinicid = f["Clinics"].ToString();
+
+           
+
             if (clinicid == null) { return new HttpStatusCodeResult(HttpStatusCode.BadRequest); }
 
 
             d.ClinicId = int.Parse(clinicid);
             var c = db.Clinics.Find(d.ClinicId);
+            if (c.DayLists.ToList().Find(q => q.DayName == d.DayName) != null) { return RedirectToAction("YourclinicDaylist"); }
 
             if (ModelState.IsValid)
             {
@@ -84,7 +88,7 @@ namespace Clinic_Website.Controllers
                 db.DayLists.Add(d);
                 for (int i = (int)c.StartTime; i < (int)c.EndTime; i++)
                 {
-                    AvailableTimesList availableTimes = new AvailableTimesList { DayListId = d.Id, Slot_start = (TimeSlots)i };
+                    AvailableTimesList availableTimes = new AvailableTimesList { DayListId = d.Id, Taken = false, Slot_start = (TimeSlots)i };
 
                     db.AvailableTimesLists.Add(availableTimes);
 
@@ -128,7 +132,7 @@ namespace Clinic_Website.Controllers
                 db.DayLists.Remove(day);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("YourclinicDaylist");
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

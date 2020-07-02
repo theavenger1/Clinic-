@@ -17,7 +17,7 @@ namespace Clinic_Website.Models
 
      
         public string PatientId { get; set; }
-        public ApplicationUser Patient { get; set; }
+        public virtual ApplicationUser Patient { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Display(Name = "Date Created")]

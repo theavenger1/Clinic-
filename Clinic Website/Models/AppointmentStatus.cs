@@ -12,7 +12,7 @@ namespace Clinic_Website.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int Name { get; set; }
+        public String Name { get; set; }
 
         // two relationships (one to many )
         public virtual ICollection<Appointment> Appointments { get; set; }

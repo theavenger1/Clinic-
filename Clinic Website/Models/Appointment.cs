@@ -19,12 +19,12 @@ namespace Clinic_Website.Models
 
 
         [Display(Name = "Day of Appointment")]
-        public Days DayofApp { get; set; }
+        public DateTime DayofApp { get; set; }
 
         [Display(Name = "Time of Appointment")]
         public TimeSlots TimeStart { get; set; }
 
-        //not entered at creation 
+        // entered at creation 
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Display(Name ="Date Created")]
@@ -44,7 +44,7 @@ namespace Clinic_Website.Models
 
         [ForeignKey("PatientState")]
         public int PatientStateId { get; set; }
-        public PatientState PatientState { get; set; }
+        public virtual PatientState PatientState { get; set; }
 
 
         //3 many to one 

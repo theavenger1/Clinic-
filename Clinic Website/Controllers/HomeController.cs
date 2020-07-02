@@ -20,12 +20,15 @@ namespace WebApplication2.Controllers
            
             return View(DB.Categories.ToList());
         }
-        public ActionResult Details(int ClinicId) {
+        public ActionResult Details(int ClinicId , int? be) {
             var clinic = DB.Clinics.Find(ClinicId);
             if (clinic == null) {
                 return HttpNotFound();
             }
             Session["ClinicId"] = ClinicId;
+
+            if (be == 1) { ViewBag.Result = "You have applied before !"; }
+
             return View(clinic);
         }
         [Authorize]
