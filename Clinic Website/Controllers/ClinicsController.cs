@@ -13,7 +13,7 @@ using Clinic_Website.Migrations;
 
 namespace Clinic_Website.Controllers
 {
-    [Authorize]
+    [Authorize]   
     public class ClinicsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -24,6 +24,19 @@ namespace Clinic_Website.Controllers
             //   var clinics = db.Clinics.Include(j => j.Category);
             var clinics = db.Clinics;
             return View(clinics.ToList());
+        }
+
+        [Authorize(Roles = "Doctor")]
+        public ActionResult YourClinics()
+        {
+            string currentUserId = User.Identity.GetUserId(); 
+
+
+            var clinics  = from r in db.Clinics
+                                      where r.userId == currentUserId
+                                      orderby r.Id
+                                      select r;
+            return View(clinics);
         }
 
         public ActionResult Details(int? id)
@@ -39,7 +52,7 @@ namespace Clinic_Website.Controllers
             }
             return View(clinic);
         }
-        [Authorize(Roles = "Doctor")]
+        [Authorize(Roles = "Doctor")]   
         public ActionResult Create()
         {
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName");
@@ -151,10 +164,10 @@ namespace Clinic_Website.Controllers
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName", clinic.CategoryId);
             return View(clinic);
         }
-        
-        
-        
-    
+
+
+
+       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -197,8 +210,8 @@ namespace Clinic_Website.Controllers
         //    return View(clinic);
         //}
 
- 
- 
+
+        [Authorize(Roles = "Doctor")]
         public ActionResult Delete(int? id)
 
         {
@@ -213,7 +226,7 @@ namespace Clinic_Website.Controllers
             db.Clinics.Remove(clinic);
             db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("YourClinics");
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

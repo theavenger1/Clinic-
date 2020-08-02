@@ -32,7 +32,29 @@ namespace Clinic_Website.Controllers
             return View(model);
         }
 
-        public ActionResult MyAppointments( int? be)
+        [Authorize(Roles = "Doctor")]
+        public ActionResult ClinicApps(int? id)
+        {
+
+            if (id == null)                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+           
+            
+            var currentUserId = User.Identity.GetUserId();
+            Clinic clinic = db.Clinics.Find(id);
+
+            if (clinic.userId!=currentUserId) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+
+            var model = from r in db.Appointments
+                        where r.ClinicId==id
+                        orderby r.Date_Created
+                        select r;
+       
+            if (model == null)  return View("NoApp"); 
+            return View(model);
+        }
+
+            public ActionResult MyAppointments( int? be)
         {
             string currentUserId = User.Identity.GetUserId();
 
@@ -49,9 +71,8 @@ namespace Clinic_Website.Controllers
             return View(model);
         }
 
-
-
-
+        
+ 
 
         [HttpGet]
         public ActionResult Create(DateTime date, TimeSlots time, int Id, int time1 )
@@ -190,7 +211,44 @@ namespace Clinic_Website.Controllers
 
         }
 
+        [Authorize(Roles = "Doctor")]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+            var appointment = db.Appointments.Find(id);
+
+            if (appointment == null)
+            {
+                return HttpNotFound();
+
+            }
+            string currentUserId = User.Identity.GetUserId();
+            if (appointment.Clinic.userId != currentUserId) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            ViewBag.sts= new SelectList(db.AppointmentStatus, "Id", "Name");
+
+            return View(appointment);
+
+
+
+        }
+        [HttpPost]
+        public ActionResult Edit(Appointment app,FormCollection f)
+        {
+            var x = db.PatientStates.Find(app.PatientStateId);
+                
+            x.StateName = app.
+            if (ModelState.IsValid)
+            {  
+                db.Entry(app).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ClinicApps");
+            }
+
+            return View();
+        }
         public ActionResult Cancel (int? id)
         {
             if (id == null)

@@ -46,14 +46,14 @@
                                     @if (User.IsInRole("Doctor"))
                                     {
                                         //return the doctor clinics
-                                        <a href="~/Home/GetDoctorClinic" class="btn btn-success btn-block">Your Clinics</a>
+                                        <a href="~/Clinics/YourClinics" class="btn btn-success btn-block">Your Clinics</a>
                                         //return the clinics with it's applied patient
                                         <a href="~/Home/GetPatientsforClinics" class="btn btn-success btn-block">Your Applied Patient</a>
                                         <a href="~/Clinics/Create" class="btn btn-success btn-block">Add new Clinic</a>
                                     }
                                     else if (User.IsInRole("Patient"))
                                     {
-                                        <a href="~/Home/GetClinicsByUser" class="btn btn-success btn-block">The Clinics you have applied</a>
+                                        <a href="~/Appointment/MyAppointments" class="btn btn-success btn-block">My Appointments</a>
                                     }
                                     else
                                     {

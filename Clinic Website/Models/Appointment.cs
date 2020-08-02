@@ -17,7 +17,7 @@ namespace Clinic_Website.Models
         //Entered by doctor 
         public String Prescription { get; set; }
 
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Display(Name = "Day of Appointment")]
         public DateTime DayofApp { get; set; }
 
@@ -39,7 +39,7 @@ namespace Clinic_Website.Models
 
         //1  many to one 
         [ForeignKey("Clinic")]
-        public int ClinicId { get; set; }
+        public int? ClinicId { get; set; }
         public virtual Clinic Clinic { get; set; }
 
         //2 many to one 

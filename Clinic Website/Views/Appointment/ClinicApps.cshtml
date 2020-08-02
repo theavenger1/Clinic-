@@ -1,25 +1,18 @@
 ﻿@model IEnumerable<Clinic_Website.Models.Appointment>
 @using Clinic_Website.Models
 @{
-    ViewBag.Title = "My Appointments";
+    ViewBag.Title = "ClinicApps";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<h2>MyAppointments</h2>
-
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-<div class="alert alert-info">
-    @{ if (ViewBag.Result != null)
-        {
-            <h3>@ViewBag.Result</h3> } }
+<h2>ClinicApps</h2>
 
 
-</div>
 
 <table class="table">
     <tr>
         <th>
-           Status
+            Status
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Clinic.ClinicName)
@@ -67,6 +60,7 @@
                 @Html.DisplayFor(modelItem => item.Date_Created)
             </td>
             <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Cancel", "Cancel", new { id = item.Id })
             </td>
         </tr>

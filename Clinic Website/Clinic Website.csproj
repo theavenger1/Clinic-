@@ -258,6 +258,14 @@
     <Compile Include="Migrations\202008021555043_remove timelist.Designer.cs">
       <DependentUpon>202008021555043_remove timelist.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008021913287_clinic delete clasuse.cs" />
+    <Compile Include="Migrations\202008021913287_clinic delete clasuse.Designer.cs">
+      <DependentUpon>202008021913287_clinic delete clasuse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008022052445_date .cs" />
+    <Compile Include="Migrations\202008022052445_date .Designer.cs">
+      <DependentUpon>202008022052445_date .cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
@@ -708,6 +716,9 @@
     <Content Include="Views\Appointment\Index.cshtml" />
     <Content Include="Views\Appointment\MyAppointments.cshtml" />
     <Content Include="Views\Appointment\NoApp.cshtml" />
+    <Content Include="Views\Clinics\YourClinics.cshtml" />
+    <Content Include="Views\Appointment\ClinicApps.cshtml" />
+    <Content Include="Views\Appointment\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002071433359_ClinicWebsiteData.resx">
@@ -760,6 +771,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008021555043_remove timelist.resx">
       <DependentUpon>202008021555043_remove timelist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008021913287_clinic delete clasuse.resx">
+      <DependentUpon>202008021913287_clinic delete clasuse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008022052445_date .resx">
+      <DependentUpon>202008022052445_date .cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
