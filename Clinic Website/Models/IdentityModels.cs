@@ -42,10 +42,12 @@ namespace Clinic_Website.Models
 
         public virtual DbSet<DayList> DayLists { get; set; }
 
-        public virtual DbSet<TimeSlotList> TimeSlotLists { get; set; }
+      //  public virtual DbSet<TimeSlotList> TimeSlotLists { get; set; }
         public virtual DbSet<AvailableTimesList> AvailableTimesLists { get; set; }
 
-        
+        public virtual DbSet<StatusHistory> StatusHistories { get; set; }
+
+
 
         //public System.Data.Entity.DbSet<Clinic_Website.Models.ApplicationUser> ApplicationUsers { get; set; }
 

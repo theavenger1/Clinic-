@@ -31,11 +31,8 @@ namespace WebApplication2.Controllers
 
             return View(clinic);
         }
-        [Authorize]
-        public ActionResult Apply()
-        {
-            return View();
-        }
+
+
         /*
         [HttpPost]
         //بيقدم في العيادة الاكشن دا بستخدمه للتقديم ع العيادة 
@@ -150,14 +147,15 @@ namespace WebApplication2.Controllers
                 return View(clinic);
             }
         }
-
-        public ActionResult About()
+           public ActionResult GetClinicsByUser()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            var UserId = User.Identity.GetUserId();
+            //non query type
+            var Clinics = DB.ApplyForClinics.Where(a => a.UserId == UserId);
+            return View(Clinics.ToList());
         }
-        //new actions
+      
+        */
         [Authorize]
         public ActionResult GetDoctorClinic()
         {
@@ -172,14 +170,7 @@ namespace WebApplication2.Controllers
         [Authorize]
         //بترجع العياداتات اللي اليوزر المريض قدم فيها 
 
-        public ActionResult GetClinicsByUser()
-        {
-            var UserId = User.Identity.GetUserId();
-            //non query type
-            var Clinics = DB.ApplyForClinics.Where(a => a.UserId == UserId);
-            return View(Clinics.ToList());
-        }
-        */
+     
         //separate doctors and patients from users
         [Authorize]
         public ActionResult GetDoctorsByAdmin()
@@ -198,6 +189,14 @@ namespace WebApplication2.Controllers
             var role = roleManager.FindByName("Patient").Users.First();
             var usersInRolePatient = DB.Users.Where(u => u.Roles.Select(r => r.RoleId).Contains(role.RoleId)).ToList();
             return View(usersInRolePatient);
+        }
+
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
         }
         [HttpGet]
         public ActionResult Contact()

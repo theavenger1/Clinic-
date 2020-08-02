@@ -8,7 +8,7 @@ using System.Web;
 namespace Clinic_Website.Models
 {
     public enum TimeSlots
-    {// to do 
+    {
 
 
         [Display(Name = "00:00")]

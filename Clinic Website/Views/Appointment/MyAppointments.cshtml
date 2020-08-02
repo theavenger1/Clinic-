@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Clinic_Website.Models.Appointment>
-
+@using Clinic_Website.Models
 @{
     ViewBag.Title = "MyAppointments";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
@@ -19,7 +19,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AppointmentStatus.Name)
+           Status
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Clinic.ClinicName)
@@ -58,10 +58,10 @@
                 @Html.DisplayFor(modelItem => item.Prescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DayofApp)
+                @item.DayofApp.ToString("dddd, dd MMMM yyyy")
             </td>
             <td>
-                @item.DayofApp.ToString("dddd, dd MMMM yyyy")
+                @item.TimeStart.GetDisplayName()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date_Created)

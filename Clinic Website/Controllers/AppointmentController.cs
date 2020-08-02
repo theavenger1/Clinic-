@@ -32,7 +32,7 @@ namespace Clinic_Website.Controllers
             return View(model);
         }
 
-        public ActionResult MyAppointments()
+        public ActionResult MyAppointments( int? be)
         {
             string currentUserId = User.Identity.GetUserId();
 
@@ -41,7 +41,11 @@ namespace Clinic_Website.Controllers
                         orderby r.Date_Created
                         select r;
 
+            if (model ==null)
+                { return View("NoApp"); }
 
+
+            if (be == 1) { ViewBag.Result = "You cannot cancel this Appointment , please contact the clinic"; }
             return View(model);
         }
 
@@ -140,16 +144,23 @@ namespace Clinic_Website.Controllers
 
           db.SaveChanges();
           
-            //make an appointment with this tSlot  with status 
+            //make an appointment with this tSlot  with status "scheduled" 
             var model = from r in db.AppointmentStatus
                         where r.Name == "Scheduled"
                         select r;
          
-            Appointment app = new Appointment { ClinicId = Id, AppointmentStatusId=model.First().Id, DayofApp = date, PatientStateId = p.Id, TimeStart = time };
+            Appointment app = new Appointment { ClinicId = Id, AppointmentStatusId=model.First().Id, DayofApp = date, PatientStateId = p.Id, TimeStart = time ,Slot=time1};
             db.Appointments.Add(app);
             db.SaveChanges();
 
+
+            StatusHistory s = new StatusHistory { StatusId = model.First().Id, AppointmentId = app.Id, Details = "first" };
+
+            db.StatusHistories.Add(s);
+            db.SaveChanges();
             return RedirectToAction("MyAppointments");
+
+            #region commented
             //if (clinicid == null) { return new HttpStatusCodeResult(HttpStatusCode.BadRequest); }
 
 
@@ -175,7 +186,7 @@ namespace Clinic_Website.Controllers
             //    return RedirectToAction("YourclinicDaylist");
             //}
 
-
+            #endregion
 
         }
 
@@ -193,26 +204,39 @@ namespace Clinic_Website.Controllers
 
             }
              
-            if (appointment.DayofApp.DayOfWeek - DateTime.Now.DayOfWeek == 0)
+            //check the availability to cancel  
+            if (appointment.DayofApp.DayOfWeek - DateTime.Now.DayOfWeek < 1)
             {
+                
+               // ViewBag.Result = "You cannot cancel this Appointment , please contact the clinic ";
 
-                ViewBag.Result = "You cannot cancel this Appointment , please contact the clinic ";
-                return View();
-
+                return RedirectToAction("MyAppointments", new { be = 1 });
             }
+          
+            //cancelling 
+
+
             var model = from r in db.AppointmentStatus
                         where r.Name == "Cancelled"
                         select r;
             appointment.AppointmentStatusId = model.First().Id;
 
-         //   StatusHistory s = new StatusHistory { AppointmentId=appointment.Id, }
+            //put the change in status history 
+            StatusHistory s = new StatusHistory { AppointmentId = appointment.Id, StatusId = model.First().Id, Details = "before appointment " };
+            db.StatusHistories.Add(s);
 
-         // make the slot taken = false        
-            db.Entry(appointment).State = EntityState.Modified;
+            // make the slot taken = false      
+            var a = db.AvailableTimesLists.Find(appointment.Slot);
+            a.Taken = false;
 
+            db.Entry(a).State = EntityState.Modified;
             db.SaveChanges();
 
-            return View();
+
+            db.Entry(appointment).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("MyAppointments");
 
 
 

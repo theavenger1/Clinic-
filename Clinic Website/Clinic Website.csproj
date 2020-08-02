@@ -250,6 +250,14 @@
     <Compile Include="Migrations\202007011228059_sa.Designer.cs">
       <DependentUpon>202007011228059_sa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008021418465_slot idinap.cs" />
+    <Compile Include="Migrations\202008021418465_slot idinap.Designer.cs">
+      <DependentUpon>202008021418465_slot idinap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008021555043_remove timelist.cs" />
+    <Compile Include="Migrations\202008021555043_remove timelist.Designer.cs">
+      <DependentUpon>202008021555043_remove timelist.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
@@ -654,7 +662,6 @@
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Apply.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Delete.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
@@ -700,6 +707,7 @@
     <Content Include="Views\AvailableTS\Index.cshtml" />
     <Content Include="Views\Appointment\Index.cshtml" />
     <Content Include="Views\Appointment\MyAppointments.cshtml" />
+    <Content Include="Views\Appointment\NoApp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002071433359_ClinicWebsiteData.resx">
@@ -746,6 +754,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007011228059_sa.resx">
       <DependentUpon>202007011228059_sa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008021418465_slot idinap.resx">
+      <DependentUpon>202008021418465_slot idinap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008021555043_remove timelist.resx">
+      <DependentUpon>202008021555043_remove timelist.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

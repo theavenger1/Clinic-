@@ -18,6 +18,7 @@ namespace Clinic_Website.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = "Admins")]
         public ActionResult Index()
         {
             //   var clinics = db.Clinics.Include(j => j.Category);
@@ -38,7 +39,7 @@ namespace Clinic_Website.Controllers
             }
             return View(clinic);
         }
-
+        [Authorize(Roles = "Doctor")]
         public ActionResult Create()
         {
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName");
@@ -64,66 +65,68 @@ namespace Clinic_Website.Controllers
                 db.Clinics.Add(clinic);
                 db.SaveChanges();
 
-                Maintain(clinic);
-                return RedirectToAction("Home","Index");
+               
+                return RedirectToAction("YourclinicDaylist", "daylist");
             }
 
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName", clinic.CategoryId);
             return View(clinic);
         }
 
-        private void Maintain(Clinic c)
-        {
-            //to do 
+        //private void Maintain(Clinic c)
+        //{
+        //    //to do 
 
-            //SElect specific timeslots based on app length now (Default 1 hour ) 
+        //    //SElect specific timeslots based on app length now (Default 1 hour ) 
 
-            // List<TimeSlots>  allAPP = new List<TimeSlots>();
+        //    // List<TimeSlots>  allAPP = new List<TimeSlots>();
 
-            for (int i = (int)c.StartTime; i < (int)c.EndTime; i++)
-            {
-                //   allAPP.Add((TimeSlots)i);
+        //    for (int i = (int)c.StartTime; i < (int)c.EndTime; i++)
+        //    {
+        //        //   allAPP.Add((TimeSlots)i);
 
-                TimeSlotList timeSlotList = new TimeSlotList { ClinicId = c.Id, Slot_start = (TimeSlots)i, Length = c.AppointmentLength };
-                            db.TimeSlotLists.Add(timeSlotList);
- 
-    
-     
-            }
-            db.SaveChanges();
-        }
-
-        private void ProduceAvaApp(Clinic c) {
+        //        TimeSlotList timeSlotList = new TimeSlotList { ClinicId = c.Id, Slot_start = (TimeSlots)i, Length = c.AppointmentLength };
+        //                    db.TimeSlotLists.Add(timeSlotList);
 
 
-            var avadays = c.DayLists.ToList();
-            //var model = from r in db.DayLists
-            //            where r.ClinicId == c.Id
 
-            //            select r;
-            //var x = model.ToList();
+        //    }
+        //    db.SaveChanges();
+        //}
 
-            var avatimesolts = c.TimeSlotLists.ToList();
-
-            var model = from r in db.Appointments
-                        where r.ClinicId == c.Id
-
-                        select r;
-            var appointments = model.ToList();
-
-            var x = new List<TimeSlots>();
-
-         //   if (appointments == null) { return }
-            foreach (var item in appointments)
-            {
-              //  if item.TimeStart!=avatimesolts
-                
-
-            }
+        //private void ProduceAvaApp(Clinic c) {
 
 
-        }
+        //    var avadays = c.DayLists.ToList();
+        //    //var model = from r in db.DayLists
+        //    //            where r.ClinicId == c.Id
 
+        //    //            select r;
+        //    //var x = model.ToList();
+
+        //    var avatimesolts = c.TimeSlotLists.ToList();
+
+        //    var model = from r in db.Appointments
+        //                where r.ClinicId == c.Id
+
+        //                select r;
+        //    var appointments = model.ToList();
+
+        //    var x = new List<TimeSlots>();
+
+        // //   if (appointments == null) { return }
+        //    foreach (var item in appointments)
+        //    {
+        //      //  if item.TimeStart!=avatimesolts
+
+
+        //    }
+
+
+        //}
+
+
+        [Authorize(Roles = "Doctor")]
         public ActionResult Edit(int? id)
         {
             if (id == null)

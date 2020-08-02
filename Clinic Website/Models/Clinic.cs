@@ -67,7 +67,7 @@ namespace Clinic_Website.Models
 
         public virtual ICollection<DayList> DayLists { get; set; }
 
-        public virtual ICollection<TimeSlotList> TimeSlotLists { get; set; }
+     //   public virtual ICollection<TimeSlotList> TimeSlotLists { get; set; }
 
     
 

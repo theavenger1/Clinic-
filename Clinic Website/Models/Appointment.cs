@@ -24,6 +24,8 @@ namespace Clinic_Website.Models
         [Display(Name = "Time of Appointment")]
         public TimeSlots TimeStart { get; set; }
 
+        public int? Slot { get; set; }
+
         // entered at creation 
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
