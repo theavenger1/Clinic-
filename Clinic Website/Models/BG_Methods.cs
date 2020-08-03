@@ -1,28 +1,19 @@
-﻿using Clinic_Website.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
-namespace Clinic_Website.Controllers
+namespace Clinic_Website.Models
 {
-    public class AvailableTSController : Controller
+    public  static class BG_Methods
     {
-         static ApplicationDbContext db = new ApplicationDbContext();
-       
-        public ActionResult Index()
-        {
-            var model = db.AvailableTimesLists.ToList();
-
-
-            return View(model);
-        }
-      //  x.DayName.GetDisplayName() == DateTime.Now.AddDays(i).DayOfWeek.ToString()
-
+        
         public static void MakeTSAV()
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+
             Days st = Days.Saturday;
             Days q = Days.Saturday;
             for (int i = 1; i < 8; i++)
@@ -44,10 +35,10 @@ namespace Clinic_Website.Controllers
             foreach (var item in days)
             {
                 var AV_TL_D = from av in db.AvailableTimesLists
-                        where av.DayListId == item.Id
-                        select av;
- 
-                
+                              where av.DayListId == item.Id
+                              select av;
+
+
 
                 foreach (var w in AV_TL_D)
                 {
@@ -57,10 +48,9 @@ namespace Clinic_Website.Controllers
                     db.SaveChanges();
                 }
 
-            
+
             }
 
         }
-
     }
 }

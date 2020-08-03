@@ -266,10 +266,15 @@
     <Compile Include="Migrations\202008022052445_date .Designer.cs">
       <DependentUpon>202008022052445_date .cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008030955412_date none.cs" />
+    <Compile Include="Migrations\202008030955412_date none.Designer.cs">
+      <DependentUpon>202008030955412_date none.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
     <Compile Include="Models\AvailableTimesList.cs" />
+    <Compile Include="Models\BG_Methods.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Clinic.cs" />
     <Compile Include="Models\ContactModel.cs" />
@@ -777,6 +782,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008022052445_date .resx">
       <DependentUpon>202008022052445_date .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008030955412_date none.resx">
+      <DependentUpon>202008030955412_date none.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

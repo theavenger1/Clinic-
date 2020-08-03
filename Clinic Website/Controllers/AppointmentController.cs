@@ -100,7 +100,7 @@ namespace Clinic_Website.Controllers
         {
           // check if patient has already make an appointment with same clinic in same day 
             string currentUserId = User.Identity.GetUserId();
- 
+           var clinic= db.Clinics.Find(Id);
             var c = db.Appointments.Where(x => x.PatientState.PatientId == currentUserId && x.ClinicId == Id && x.DayofApp == date).ToList();
 
             if (c.Count > 1)
@@ -110,22 +110,40 @@ namespace Clinic_Website.Controllers
                 return View();
             }
 
-            // check if he has a previous Patient state with same name
+            // check if he has a previous Patient state with same name with same category 
             string patientstatename = f["pa"];
-            PatientState p;
+
+            List<Appointment> check;   
+
+
             var ExpatientStates = db.PatientStates.Where(x => x.PatientId == currentUserId && x.StateName == patientstatename).ToList();
-
+          
+             var st1 = ExpatientStates.FirstOrDefault();
+              check = db.Appointments.Where(u => u.PatientStateId == st1.Id && u.Clinic.CategoryId == clinic.CategoryId).ToList();
+            
+            //if (check.Count == 0)
+            PatientState p;
             // new patientstate if not there one
-            if (ExpatientStates.Count == 0)
-            {
-                  p = new PatientState { PatientId = currentUserId, StateName=patientstatename, InProgress = true, StartTime = date };
-                db.PatientStates.Add(p);
+            if (ExpatientStates.Count == 0|| check.Count == 0)
+            { 
+                    p = new PatientState { PatientId = currentUserId, StateName = patientstatename, InProgress = true, StartTime = date };
+                    db.PatientStates.Add(p);
 
-                db.SaveChanges(); 
+                    db.SaveChanges();
+                
             }
 
             //get the old one
-            else {   p = ExpatientStates.FirstOrDefault(); }
+            else
+            {
+              var qqqqq=  from e in check
+                where e.Clinic.CategoryId == clinic.CategoryId
+                select e.PatientStateId ;
+
+                int id = qqqqq.FirstOrDefault();
+
+
+                p = ExpatientStates.FirstOrDefault(e=>e.Id==id); }
 
             #region old way to get ava
 
@@ -237,14 +255,24 @@ namespace Clinic_Website.Controllers
         [HttpPost]
         public ActionResult Edit(Appointment app,FormCollection f)
         {
-            var x = db.PatientStates.Find(app.PatientStateId);
-                
-            x.StateName = app.
+            string sts = f["sts"].ToString();
+            string patientstatename = f["PSED"];
+            if (patientstatename != null)
+            {
+                var x = db.PatientStates.Find(app.PatientStateId);
+                x.StateName = patientstatename;
+            }
+          
             if (ModelState.IsValid)
-            {  
+            {
+                int x = int.Parse(sts);
+                app.AppointmentStatusId = x;
+               StatusHistory s = new StatusHistory { StatusId = x, AppointmentId = app.Id, Details = "Doctor" };
+                db.StatusHistories.Add(s);
+
                 db.Entry(app).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("ClinicApps");
+                return RedirectToAction("ClinicApps",new { id = app.ClinicId });
             }
 
             return View();

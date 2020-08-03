@@ -17,7 +17,7 @@ namespace Clinic_Website.Models
         //Entered by doctor 
         public String Prescription { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Day of Appointment")]
         public DateTime DayofApp { get; set; }
 

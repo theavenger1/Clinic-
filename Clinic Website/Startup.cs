@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
-
+ 
 using Hangfire;
 using Hangfire.SqlServer;
 using System.Collections.Generic;
@@ -48,7 +48,9 @@ namespace Clinic_Website
             app.UseHangfireDashboard();
 
             BackgroundJob.Enqueue(() => Debug.WriteLine("Hello world from Hangfire!"));
-            //RecurringJob.AddOrUpdate(()=> )
+            BackgroundJob.Enqueue(() => BG_Methods.MakeTSAV());
+
+           // RecurringJob.AddOrUpdate("qqq",() => BG_Methods.MakeTSAV(), Cron.Daily);
         }
 
         // roles method
