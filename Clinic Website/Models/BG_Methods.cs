@@ -4,22 +4,23 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Clinic_Website.Controllers;
+using System.Threading.Tasks;
 namespace Clinic_Website.Models
 {
     public  static class BG_Methods
     {
         
-        public static async void SendEmails()
+        public static async Task SendEmailsAsync()
 
         {
             ApplicationDbContext db = new ApplicationDbContext();
             SendEmailController e1 = new SendEmailController();
+           var apps = db.Appointments.Where(o => o.DayofApp ==  DateTime.Today).ToList();
+           //// var app = from r in db.Appointments
+           //           where r.DayofApp.ToString("dddd, dd MMMM yyyy") == DateTime.Now.ToString("dddd, dd MMMM yyyy")
+           //           select r;
 
-            var app = from r in db.Appointments
-                      where r.DayofApp.ToString("dddd, dd MMMM yyyy") == DateTime.Now.ToString("dddd, dd MMMM yyyy")
-                      select r;
-
-            var apps = app.ToList();
+           // var apps = app.ToList();
             foreach (var item in apps)
             {
                 string S = item.TimeStart.GetDisplayName();
