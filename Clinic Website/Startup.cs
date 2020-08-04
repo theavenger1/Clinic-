@@ -48,9 +48,10 @@ namespace Clinic_Website
             app.UseHangfireDashboard();
 
             BackgroundJob.Enqueue(() => Debug.WriteLine("Hello world from Hangfire!"));
-            BackgroundJob.Enqueue(() => BG_Methods.MakeTSAV());
+            //BackgroundJob.Enqueue(() => BG_Methods.MakeTSAV());
 
-           // RecurringJob.AddOrUpdate("qqq",() => BG_Methods.MakeTSAV(), Cron.Daily);
+           RecurringJob.AddOrUpdate("qqq",() => BG_Methods.MakeTSAV(), Cron.Daily);
+
         }
 
         // roles method
