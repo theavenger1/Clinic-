@@ -186,6 +186,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SendEmailController.cs" />
     <Compile Include="Controllers\TimeListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -636,12 +637,14 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
+    <Folder Include="Views\SendEmail\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Views\templetes\App_Rem.cshtml" />
     <None Include="packages.config" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
@@ -709,7 +712,6 @@
     <Content Include="Views\Clinics\Edit.cshtml" />
     <Content Include="Views\Clinics\Create.cshtml" />
     <Content Include="Views\Clinics\Details.cshtml" />
-    <Content Include="Views\Index.cshtml" />
     <Content Include="Views\Daylist\Create.cshtml" />
     <Content Include="Views\Daylist\Index.cshtml" />
     <Content Include="Views\Daylist\YourclinicDaylist.cshtml" />

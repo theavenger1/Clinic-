@@ -3,18 +3,35 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-
+using Clinic_Website.Controllers;
 namespace Clinic_Website.Models
 {
     public  static class BG_Methods
     {
         
-        public static void SendEmail()
+        public static async void SendEmails()
+
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+            SendEmailController e1 = new SendEmailController();
 
+            var app = from r in db.Appointments
+                      where r.DayofApp.ToString("dddd, dd MMMM yyyy") == DateTime.Now.ToString("dddd, dd MMMM yyyy")
+                      select r;
+
+            var apps = app.ToList();
+            foreach (var item in apps)
+            {
+                string S = item.TimeStart.GetDisplayName();
+                string Name = item.PatientState.Patient.UserName;
+                string Email = item.PatientState.Patient.Email;
+             
+                await e1.SendEmail(S, Name,Email);
+
+            }
+        
         }
-
-
+         
         public static void MakeTSAV()
         {
             ApplicationDbContext db = new ApplicationDbContext();
@@ -24,7 +41,7 @@ namespace Clinic_Website.Models
             Days q = Days.Saturday;
             for (int i = 1; i < 8; i++)
             {
-                if (q.GetDisplayName() == DateTime.Now.AddDays(-1).DayOfWeek.ToString()) { st = q; }
+                if (q.GetDisplayName() == DateTime.Now.AddDays(-3).DayOfWeek.ToString()) { st = q; }
                 q = (Days)i;
             }
 
