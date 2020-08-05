@@ -20,14 +20,28 @@ namespace Clinic_Website.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> SendEmail(string S ,string Name,string Email)
+        public async Task<ActionResult> SendEmail(string S ,string Name,string Email, string n)
         {
-            //Email
-            var message = EMailTemplate("App_Rem");
-            message = message.Replace("PAT", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Name));
-            message = message.Replace("SLOT", S);
-            await SendEmailAsync(Email, "Appoinment Reminder", message);
-            //End Email
+            if (n == "1")
+            {            //Email
+                var message = EMailTemplate("App_Rem");
+                message = message.Replace("PAT", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Name));
+                message = message.Replace("SLOT", S);
+                await SendEmailAsync(Email, "Appoinment Reminder", message);
+                //End Email
+            
+            }
+            if (n == "2")
+            {
+                var message = EMailTemplate("App_cancel");
+                message = message.Replace("PAT", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Name));
+                message = message.Replace("SLOT", S);
+                await SendEmailAsync(Email, "Appoinment Reminder", message);
+                //End Email
+                
+
+
+            }
             return Json(0, JsonRequestBehavior.AllowGet);
         }
         public string EMailTemplate(string template)

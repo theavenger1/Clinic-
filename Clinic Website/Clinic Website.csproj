@@ -271,6 +271,18 @@
     <Compile Include="Migrations\202008030955412_date none.Designer.cs">
       <DependentUpon>202008030955412_date none.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008051337115_add rate .cs" />
+    <Compile Include="Migrations\202008051337115_add rate .Designer.cs">
+      <DependentUpon>202008051337115_add rate .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008051338257_add rate nullable.cs" />
+    <Compile Include="Migrations\202008051338257_add rate nullable.Designer.cs">
+      <DependentUpon>202008051338257_add rate nullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008051431039_rate double.cs" />
+    <Compile Include="Migrations\202008051431039_rate double.Designer.cs">
+      <DependentUpon>202008051431039_rate double.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
@@ -726,6 +738,7 @@
     <Content Include="Views\Clinics\YourClinics.cshtml" />
     <Content Include="Views\Appointment\ClinicApps.cshtml" />
     <Content Include="Views\Appointment\Edit.cshtml" />
+    <Content Include="Views\templetes\App_cancel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002071433359_ClinicWebsiteData.resx">
@@ -787,6 +800,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008030955412_date none.resx">
       <DependentUpon>202008030955412_date none.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008051337115_add rate .resx">
+      <DependentUpon>202008051337115_add rate .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008051338257_add rate nullable.resx">
+      <DependentUpon>202008051338257_add rate nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008051431039_rate double.resx">
+      <DependentUpon>202008051431039_rate double.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

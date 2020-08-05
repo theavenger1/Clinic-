@@ -1,5 +1,6 @@
 ﻿using Clinic_Website.Migrations;
 using Clinic_Website.Models;
+using Clinic_Website.Controllers;
 using Hangfire.Storage.Monitoring;
 using Microsoft.AspNet.Identity;
 using System;
@@ -54,7 +55,7 @@ namespace Clinic_Website.Controllers
             return View(model);
         }
 
-            public ActionResult MyAppointments( int? be)
+        public ActionResult MyAppointments( int? be)
         {
             string currentUserId = User.Identity.GetUserId();
 
@@ -257,6 +258,9 @@ namespace Clinic_Website.Controllers
         {
             string sts = f["sts"].ToString();
             string patientstatename = f["PSED"];
+          
+            
+            //CHANGE STATE NAME TO NEW NAME 
             if (patientstatename != null)
             {
                 var x = db.PatientStates.Find(app.PatientStateId);
@@ -265,14 +269,76 @@ namespace Clinic_Website.Controllers
           
             if (ModelState.IsValid)
             {
-                int x = int.Parse(sts);
-                app.AppointmentStatusId = x;
-               StatusHistory s = new StatusHistory { StatusId = x, AppointmentId = app.Id, Details = "Doctor" };
+                int APPSTATid = int.Parse(sts);
+                app.AppointmentStatusId = APPSTATid;
+               StatusHistory s = new StatusHistory { StatusId = APPSTATid, AppointmentId = app.Id, Details = "Doctor" };
                 db.StatusHistories.Add(s);
 
+
+                //check cancel before app date 
+             var cancel_Id=   db.AppointmentStatus.Where(sa => sa.Name == "Cancelled").FirstOrDefault().Id;
+                
+                if (APPSTATid == cancel_Id && (app.DayofApp - DateTime.Today).TotalDays < 1)
+
+                {
+                    SendEmailController e1 = new SendEmailController();
+                    string S = app.TimeStart.GetDisplayName();
+                    string Name = app.PatientState.Patient.UserName;
+                    string Email = app.PatientState.Patient.Email;
+
+
+                    var task=   e1.SendEmail(S, Name, Email, "2");
+
+                    // make the slot taken = false      
+                    var a = db.AvailableTimesLists.Find(app.Slot);
+                    a.Taken = false;
+
+                    db.Entry(a).State = EntityState.Modified;
+                    db.SaveChanges();
+
+
+                    db.Entry(app).State = EntityState.Modified;
+                    db.SaveChanges();
+                      
+                    return RedirectToAction("ClinicApps", new { id = app.ClinicId });
+                }
+
+                //other status 
+
+                var Attended_Id = db.AppointmentStatus.Where(sa => sa.Name == "Attended").FirstOrDefault().Id;
+                if (APPSTATid == Attended_Id)
+                {
+                    var pat = db.Users.Find(app.PatientState.PatientId);
+                    var no = db.Appointments.Where(c => c.PatientState.PatientId == pat.Id && c.AppointmentStatusId != cancel_Id).ToList().Count;
+                    pat.Rate += 1/no;
+                    db.Entry(pat).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    db.Entry(app).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ClinicApps", new { id = app.ClinicId });
+                }
+            
+                
+                var NAttended_Id = db.AppointmentStatus.Where(sa => sa.Name == "Not Attended").FirstOrDefault().Id;
+                if (APPSTATid == NAttended_Id)
+                {
+                    var pat = db.Users.Find(app.PatientState.PatientId);
+                    var no = db.Appointments.Where(c => c.PatientState.PatientId == pat.Id && c.AppointmentStatusId != cancel_Id).ToList().Count;
+                    pat.Rate -= 1/no;
+                    db.Entry(pat).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    db.Entry(app).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ClinicApps", new { id = app.ClinicId });
+
+                }
+
+                //cancel after 
                 db.Entry(app).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("ClinicApps",new { id = app.ClinicId });
+                return RedirectToAction("ClinicApps", new { id = app.ClinicId });
             }
 
             return View();
@@ -291,10 +357,9 @@ namespace Clinic_Website.Controllers
             }
              
             //check the availability to cancel  
-            if (appointment.DayofApp.DayOfWeek - DateTime.Now.DayOfWeek < 1)
+            if ((appointment.DayofApp - DateTime.Today).TotalDays < 1)
             {
                 
-               // ViewBag.Result = "You cannot cancel this Appointment , please contact the clinic ";
 
                 return RedirectToAction("MyAppointments", new { be = 1 });
             }

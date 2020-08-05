@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace Clinic_Website.Models
 {
     public class ApplicationUser : IdentityUser
     {
+      
+        public double Rate { get; set; }
         // public string UserType { get; set; }
         public virtual ICollection<Clinic> Clinics { get; set; }
         public virtual ICollection<PatientState> PatientStates { get; set; }

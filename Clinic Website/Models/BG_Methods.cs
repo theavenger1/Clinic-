@@ -27,7 +27,7 @@ namespace Clinic_Website.Models
                 string Name = item.PatientState.Patient.UserName;
                 string Email = item.PatientState.Patient.Email;
              
-                await e1.SendEmail(S, Name,Email);
+                await e1.SendEmail(S, Name,Email,"1");
 
             }
         
