@@ -15,11 +15,7 @@ namespace Clinic_Website.Controllers
 {
     public class SendEmailController : Controller
     {
-  
-        public ActionResult Index()
-        {
-            return View();
-        }
+   
         public async Task<ActionResult> SendEmail(string S ,string Name,string Email, string n)
         {
             if (n == "1")

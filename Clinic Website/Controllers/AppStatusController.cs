@@ -42,9 +42,7 @@ namespace Clinic_Website.Controllers
         }
 
 
-        
-
-
+         
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AppointmentStatus appointmentStatus)
@@ -58,9 +56,7 @@ namespace Clinic_Website.Controllers
             return View();
         }
 
-
-
-
+         
         public ActionResult Delete(int? id)
 
         {

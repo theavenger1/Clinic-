@@ -10,16 +10,14 @@ using System.Web.Mvc;
 namespace Clinic_Website.Controllers
 {
     public class DaylistController : Controller
-    { 
-       
-            private ApplicationDbContext db;
-
-            public DaylistController()
+    {  private ApplicationDbContext db;
+       public DaylistController()
             {
                 db = new ApplicationDbContext();
             }
+           
         [Authorize(Roles ="Admins")]
-            public ActionResult Index()
+        public ActionResult Index()
             {
          
 
@@ -42,9 +40,8 @@ namespace Clinic_Website.Controllers
             return View(model);
         }
 
-
         [HttpGet]
-            public ActionResult Create()
+        public ActionResult Create()
             {
 
             string currentUserId = User.Identity.GetUserId();
@@ -54,6 +51,7 @@ namespace Clinic_Website.Controllers
 
                         select r;
 
+
              if (model == null) { return new HttpStatusCodeResult(HttpStatusCode.BadRequest); }
 
 
@@ -62,11 +60,7 @@ namespace Clinic_Website.Controllers
 
             return View();
             }
-
-
-
-
-
+         
         [HttpPost]
         public ActionResult Create(DayList d, FormCollection f)
         {
@@ -148,68 +142,7 @@ namespace Clinic_Website.Controllers
             base.Dispose(disposing);
         }
 
-        //[HttpGet]
-        //public ActionResult Edit(int id)
-        //{
-        //    var city = db.cities.Find(id);
-        //    if (city == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-
-
-        //    ViewBag.Govs = new SelectList(db.govs, "Id", "gov_name");
-        //    return View(city);
-
-
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(city city, FormCollection f)
-        //{
-
-        //    string Govvalue = f["Govs"].ToString();
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        city.gov_id = int.Parse(Govvalue);
-
-        //        var entry = db.Entry(city);
-        //        entry.State = EntityState.Modified;
-
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(city);
-
-        //}
-
-        //[HttpGet]
-        //public ActionResult Delete(int id)
-        //{
-        //    var city = db.cities.Find(id);
-
-        //    if (city == null)
-        //    {
-        //        return View("Not Found");
-        //    }
-        //    return View(city);
-
-        //}
-        //[HttpPost]
-
-        //public ActionResult Delete(int id, FormCollection form)
-        //{
-        //    var city = db.cities.Find(id);
-        //    db.cities.Remove(city);
-        //    db.SaveChanges();
-
-
-        //    return RedirectToAction("Index");
-
-        //}
+      
 
 
     }

@@ -16,11 +16,8 @@ namespace Clinic_Website.Models
             ApplicationDbContext db = new ApplicationDbContext();
             SendEmailController e1 = new SendEmailController();
            var apps = db.Appointments.Where(o => o.DayofApp ==  DateTime.Today).ToList();
-           //// var app = from r in db.Appointments
-           //           where r.DayofApp.ToString("dddd, dd MMMM yyyy") == DateTime.Now.ToString("dddd, dd MMMM yyyy")
-           //           select r;
-
-           // var apps = app.ToList();
+         
+          
             foreach (var item in apps)
             {
                 string S = item.TimeStart.GetDisplayName();
@@ -45,11 +42,14 @@ namespace Clinic_Website.Models
                 if (q.GetDisplayName() == DateTime.Now.AddDays(-3).DayOfWeek.ToString()) { st = q; }
                 q = (Days)i;
             }
-
+            #region commented
             //  int x = (int)st;
 
             //         var days = db.AvailableTimesLists.TakeWhile(x => x.DayList.DayName == st); 
             //var days = db.DayLists.Where(o => o.DayName.ToString() == DateTime.Now.AddDays(-2).DayOfWeek.ToString());
+            #endregion
+
+
             var day = from r in db.DayLists
                        where r.DayName == st
                        select r;

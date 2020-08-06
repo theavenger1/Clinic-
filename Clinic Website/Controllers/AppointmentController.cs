@@ -72,9 +72,8 @@ namespace Clinic_Website.Controllers
             return View(model);
         }
 
-        
- 
 
+ 
         [HttpGet]
         public ActionResult Create(DateTime date, TimeSlots time, int Id, int time1 )
         {         
@@ -343,6 +342,8 @@ namespace Clinic_Website.Controllers
 
             return View();
         }
+       
+        
         public ActionResult Cancel (int? id)
         {
             if (id == null)

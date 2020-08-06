@@ -179,7 +179,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\AppStatusController.cs" />
-    <Compile Include="Controllers\AvailableTSController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ClinicsController.cs" />
     <Compile Include="Controllers\DaylistController.cs" />
@@ -187,7 +186,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SendEmailController.cs" />
-    <Compile Include="Controllers\TimeListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -297,7 +295,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\PatientState.cs" />
     <Compile Include="Models\StatusHistory.cs" />
-    <Compile Include="Models\TimeSlotList.cs" />
     <Compile Include="Models\TimeSlots.cs" />
     <Compile Include="Models\TimeSlotsExtention.cs" />
     <Compile Include="View Model\AccountViewModels.cs" />
@@ -649,7 +646,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
-    <Folder Include="Views\SendEmail\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
