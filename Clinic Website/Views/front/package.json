@@ -1,0 +1,25 @@
+{
+  "name": "graduation-project",
+  "version": "1.0.0",
+  "description": "fron-end pages for my gradution project",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdroVolt/graduation-project.git"
+  },
+  "author": "Edro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EdroVolt/graduation-project/issues"
+  },
+  "homepage": "https://github.com/EdroVolt/graduation-project#readme",
+  "dependencies": {
+    "animate.css": "^4.1.0",
+    "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1"
+  }
+}

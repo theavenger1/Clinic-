@@ -1,30 +1,162 @@
 ﻿@model IEnumerable<Clinic_Website.Models.Category>
-@{
-    ViewBag.Title = "Home Page";
-}
+@using Clinic_Website.Models
+@{ ViewBag.Title = "Home Page"; }
 
-<div class="jumbotron alert alert-info" style="margin-top:50px">
-    <h1>Hello</h1>
-    <p class="lead">This is a clinic mangment to doctors and patient</p>
-    <p><a href="#" class="btn btn-primary btn-lg">More Details</a></p>
-</div>
+@*<div class="jumbotron alert alert-info" style="margin-top:50px">
+        <h1>Hello</h1>
+        <p class="lead">This is a clinic mangment to doctors and patient</p>
+        <p><a href="#" class="btn btn-primary btn-lg">More Details</a></p>
+    </div>*@
+<section class="search-clinics mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control rounded-0" placeholder="Enter Clinic Name"
+                       aria-label="Enter Clinic Name" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary  rounded-0 dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Category
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Dental</a>
+                        <a class="dropdown-item" href="#">Eyes</a>
+                        <a class="dropdown-item" href="#">Spinal</a>
+
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary  rounded-0 dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Place
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Zagazig</a>
+                            <a class="dropdown-item" href="#">Cairo</a>
+                            <a class="dropdown-item" href="#">Alex</a>
+
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary  rounded-0" type="button"
+                                    id="button-addon2">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</section>
+
 
 @foreach (var item in Model)
 {
-    <div class="panel panel-info">
-        <h3 class="panel-heading">@Html.DisplayFor(modelItem => item.CategoryName)</h3>
-        <div class="row panel-body">
-            <h5>@Html.DisplayFor(modelItem => item.CategoryDescription)</h5> 
+
+<div class="clinics cards">
+    <div class="container my-5">
+        <div class="row">
+
+
+            @*<div class="panel panel-info">
+                <h3 class="panel-heading">@Html.DisplayFor(modelItem => item.CategoryName)</h3>
+                <div class="row panel-body">
+                    <h5>@Html.DisplayFor(modelItem => item.CategoryDescription)</h5>*@
 
             @foreach (var subItem in item.Clinics)
             {
-                <div class="col-md-3 thumbnail" style="margin-left:15px; margin-bottom:15px;min-height:380px;">
-                    <img style="height:200px;" src="~/Uploads/@subItem.ClinicImage"/>
-                    <h3>@Html.DisplayFor(modelItem => subItem.ClinicName)</h3>
-                    <h5>@Html.Raw(HttpUtility.HtmlDecode(Html.DisplayFor(modelItem => subItem.ClinicDescription).ToString()))</h5>
-                    @Html.ActionLink("Details about Clinic", "Details", new { ClinicId = subItem.Id }, new { @class = "btn btn-primary" })
+
+<div class="card mb-5 border-0 shadow" style="width: 100%;">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img style="max-height:286px;" src="~/Uploads/@subItem.ClinicImage" class="card-img" alt="">
+        </div>
+
+        <div class="col-md-4">
+            <div class="card-body">
+                <h3 class="card-title">@Html.DisplayFor(modelItem => subItem.ClinicName)</h3>
+                <!-- start contacts -->
+                <table class="mw-50">
+                    <tr>
+                        <td><i class="fa fa-stethoscope fa-lg"></i></td>
+                        <td>
+                            <span>Clinic Info </span>@Html.DisplayFor(modelItem => subItem.ClinicDescription)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-money fa-lg"></i></td>
+                        <td><span>Fees: </span>@Html.DisplayFor(modelItem => subItem.Price)</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-globe fa-lg"></i></td>
+                        <td><span>Address: </span> @Html.DisplayFor(modelItem => subItem.Address)</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-globe fa-lg"></i></td>
+                        <td><span>Telephone: </span> @Html.DisplayFor(modelItem => subItem.MobileNumber)</td>
+                    </tr>
+                    <tr>
+                        <td>  @Html.ActionLink("More Details", "Details", new { ClinicId = subItem.Id }, new { @class = "btn btn-primary" })</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <section class="department-area">
+                <div class="department-slider owl-carousel">
+                    @{ for (int i = 0; i < 4; i++)
+                                            {
+                        <div class="single-slide text-center bg-white text-white mb-0">
+                            <div> @DateTime.Now.AddDays(i).ToString("MMMM dd")   </div>
+                         
+                    @{ var o = subItem.DayLists.ToList().Find(x => x.DayName.GetDisplayName() == DateTime.Now.AddDays(i).DayOfWeek.ToString());
+
+                                if (o != null)
+                                {
+                                         
+                                            foreach (var item1 in o.AvailableTimes.ToList())
+                                                {
+                                                   if (item1.Taken == false)
+                                                    {
+                                                       <div>
+                                            @Html.ActionLink(item1.Slot_start.GetDisplayName(), "Create", "Appointment", new { date = @DateTime.Today.AddDays(i), time = item1.Slot_start, Id = item1.DayList.Clinic.Id, time1 = item1.Id }, htmlAttributes: new { @class = "" })
+                                                     </div>
+                                                   }
+                                                         }
+                                       }
+                                else
+                                {
+                                      <div> Not Available  </div> 
+                                 } 
+                                
+                                }
+                        </div> }
+                    }
                 </div>
-            }
+            </section>
+        </div>
+
+    </div>
+</div> @*<div class="col-md-3 thumbnail" style="margin-left:15px; margin-bottom:15px;min-height:380px;">
+        <img style="height:200px;" src="~/Uploads/@subItem.ClinicImage" />
+        <h3>@Html.DisplayFor(modelItem => subItem.ClinicName)</h3>
+        <h5>@Html.Raw(HttpUtility.HtmlDecode(Html.DisplayFor(modelItem => subItem.ClinicDescription).ToString()))</h5>
+        @Html.ActionLink("Details about Clinic", "Details", new { ClinicId = subItem.Id }, new { @class = "btn btn-primary" })
+    </div>*@}
+
+
         </div>
     </div>
+
+</div> @*</div>*@ @*</div>*@}
+
+@section scriptsHere{
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"
+            integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J"
+            crossorigin="anonymous"></script>
+
 }

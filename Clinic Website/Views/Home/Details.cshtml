@@ -50,50 +50,35 @@
 
         <dd>
 
-            <div>
-                @{
+            <div> @{
                     for (int i = 0; i < 4; i++)
                     {
                         @: <div>
                             @DateTime.Now.AddDays(i).ToString("dddd, dd MMMM yyyy");
                         @:   </div>
 
-
-
-
-
-
                         var o = Model.DayLists.ToList().Find(x => x.DayName.GetDisplayName() == DateTime.Now.AddDays(i).DayOfWeek.ToString());
 
-
-                        if (o != null)
-                        {
-
-                            <div>
-                                @foreach (var item1 in o.AvailableTimes.ToList())
-                                {
-
-
-                                    if (item1.Taken == false)
+                                    if (o != null)
                                     {
-                                        @Html.ActionLink(item1.Slot_start.GetDisplayName(), "Create", "Appointment", new { date = @DateTime.Today.AddDays(i), time = item1.Slot_start, Id = item1.DayList.Clinic.Id, time1=item1.Id }, htmlAttributes: new { @class = "" });@:
-                                        @:
+                                        <div>
+                                            @foreach (var item1 in o.AvailableTimes.ToList())
+                                            {
+                                                if (item1.Taken == false)
+                                                {
+                                                    @Html.ActionLink(item1.Slot_start.GetDisplayName(), "Create", "Appointment", new { date = @DateTime.Today.AddDays(i), time = item1.Slot_start, Id = item1.DayList.Clinic.Id, time1 = item1.Id }, htmlAttributes: new { @class = "" });@:
+                                                    @:
+                                                }
+                                            }
+                                        </div>
                                     }
-                                }
-                            </div>
-
-                        }
-
-                        else
-                        {
-
-                            @: Not Available
-                        }
-
+                                    else
+                                    {
+                                        @: Not Available
+                                    }
                     }
-                }
-
-            </div>
+                }  </div>
+           
 
 
         </dd>
