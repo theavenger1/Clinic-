@@ -5,62 +5,53 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<h2>Create</h2>
+    <div>
+        <h2>Create</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Appointment</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PatientState.StateName,  htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-
-                @Html.TextBox("pa");
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DayofApp, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @ViewBag.date
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TimeStart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @ViewBag.time
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Clinic.ClinicName, "ClinicName", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @ViewBag.Clinic
-            </div>
-        </div>
-
-
-
-
-        @using (Html.BeginForm("Create", "Appointment", FormMethod.Post, new { date = ViewBag.date, time = ViewBag.time, Id = ViewBag.ClinicId, time1 = ViewBag.timeid }))
+        @using (Html.BeginForm())
         {
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Make an appoimtment" class="btn btn-default" />
+
+            @Html.AntiForgeryToken()
+
+            <h4>Appointment</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-5 col-form-label">Purpose</label>
+
+                <div class="col-sm-7">
+                    <input type="text" name="pa" class="form-control" id="inputEmail3">
                 </div>
             </div>
-        }
-    </div>
-}
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Day of Appointment</label>
+                <div class="col-sm-7">
+                    @ViewBag.date
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Time</label>
+                <div class="col-sm-7">
+                    @ViewBag.time
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Clinic </label>
+                <div class="col-sm-7">
+                    @ViewBag.Clinic
+                </div>
+            </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
+            using (Html.BeginForm("Create", "Appointment", FormMethod.Post, new { date = ViewBag.date, time = ViewBag.time, Id = ViewBag.ClinicId, time1 = ViewBag.timeid }))
+            {
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Make an appoimtment" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+
+        }
+        </div>

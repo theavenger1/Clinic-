@@ -15,6 +15,10 @@ td span {
     color: blue;
 }
 
+.single-slide a {
+    color: white;
+}
+
 .single-slide div {
     padding: 4px;
 }

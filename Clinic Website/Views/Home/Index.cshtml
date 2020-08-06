@@ -1,12 +1,15 @@
 ﻿@model IEnumerable<Clinic_Website.Models.Category>
 @using Clinic_Website.Models
-@{ ViewBag.Title = "Home Page"; }
 
-@*<div class="jumbotron alert alert-info" style="margin-top:50px">
+
+    
+    @*<div class="jumbotron alert alert-info" style="margin-top:50px">
         <h1>Hello</h1>
         <p class="lead">This is a clinic mangment to doctors and patient</p>
         <p><a href="#" class="btn btn-primary btn-lg">More Details</a></p>
     </div>*@
+
+
 <section class="search-clinics mt-5">
     <div class="container">
         <div class="row">
@@ -89,7 +92,7 @@
                         <td><span>Address: </span> @Html.DisplayFor(modelItem => subItem.Address)</td>
                     </tr>
                     <tr>
-                        <td><i class="fa fa-globe fa-lg"></i></td>
+                        <td><i class="fa fa-phone fa-lg"></i></td>
                         <td><span>Telephone: </span> @Html.DisplayFor(modelItem => subItem.MobileNumber)</td>
                     </tr>
                     <tr>
@@ -102,33 +105,29 @@
             <section class="department-area">
                 <div class="department-slider owl-carousel">
                     @{ for (int i = 0; i < 4; i++)
-                                            {
-                        <div class="single-slide text-center bg-white text-white mb-0">
-                            <div> @DateTime.Now.AddDays(i).ToString("MMMM dd")   </div>
-                         
-                    @{ var o = subItem.DayLists.ToList().Find(x => x.DayName.GetDisplayName() == DateTime.Now.AddDays(i).DayOfWeek.ToString());
+                        {
+    <div class="single-slide text-center bg-white text-white mb-0">
+        <div> @DateTime.Now.AddDays(i).ToString("MMMM dd")   </div>
 
-                                if (o != null)
-                                {
-                                         
-                                            foreach (var item1 in o.AvailableTimes.ToList())
-                                                {
-                                                   if (item1.Taken == false)
-                                                    {
-                                                       <div>
-                                            @Html.ActionLink(item1.Slot_start.GetDisplayName(), "Create", "Appointment", new { date = @DateTime.Today.AddDays(i), time = item1.Slot_start, Id = item1.DayList.Clinic.Id, time1 = item1.Id }, htmlAttributes: new { @class = "" })
-                                                     </div>
-                                                   }
-                                                         }
-                                       }
-                                else
-                                {
-                                      <div> Not Available  </div> 
-                                 } 
-                                
-                                }
-                        </div> }
-                    }
+        @{ var o = subItem.DayLists.ToList().Find(x => x.DayName.GetDisplayName() == DateTime.Now.AddDays(i).DayOfWeek.ToString());
+
+            if (o != null)
+            {
+
+                foreach (var item1 in o.AvailableTimes.ToList())
+                {
+                    if (item1.Taken == false)
+                    {
+<div class="time-slot">
+    @Html.ActionLink(item1.Slot_start.GetDisplayName(), "Create", "Appointment", new { date = @DateTime.Today.AddDays(i), time = item1.Slot_start, Id = item1.DayList.Clinic.Id, time1 = item1.Id }, htmlAttributes: new { @class = "" })
+</div> }
+                            }
+                        }
+                        else
+                        {
+<div> Not Available  </div> } }
+    </div> }
+                   }
                 </div>
             </section>
         </div>

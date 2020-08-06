@@ -3,34 +3,59 @@
 @{
     ViewBag.Title = "Your Clinics";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
+    int x=0; 
 }
 
-<h2>YourClinics</h2>
+<style>
+    body{
+        font-size: 18px;
+
+    }
+
+    tr td {
+        height: 70px;
+        min-width:300px;
+    }
+
+</style>
+
+<h2 class="mt-5" style="position:absolute; top:150px; left:400px;">YourClinics</h2>
 
  
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
+<table class="table  my-5">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+               #
+            </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.ClinicName)
-        </th>
-      
+            <th>
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </th>
 
-       
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-       
+            <th>
+                @Html.DisplayNameFor(model => model.ClinicName)
+            </th>
 
-        <th></th>
-    </tr>
 
+
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    
+     
+<tbody>
     @foreach (var item in Model)
     {
+        x++;
         <tr>
+
+            <th> @x</th>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
             </td>
@@ -38,16 +63,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ClinicName)
             </td>
-          
 
-           
+
+
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-            
+
             <td>
 
-               @Html.ActionLink("View App","ClinicApps", "Appointment", new { id = item.Id },htmlAttributes: new { @class = "" }) |
+                @Html.ActionLink("View App", "ClinicApps", "Appointment", new { id = item.Id }, htmlAttributes: new { @class = "" }) |
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
@@ -55,5 +80,8 @@
             </td>
         </tr>
     }
+</tbody>
 
+        
 </table>
+

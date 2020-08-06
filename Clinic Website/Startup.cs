@@ -51,7 +51,7 @@ namespace Clinic_Website
             //  BackgroundJob.Enqueue(() => Debug.WriteLine("Hello world from Hangfire!"));
             //BackgroundJob.Enqueue(() => BG_Methods.MakeTSAV());
             // RecurringJob.AddOrUpdate( () =>  e1.SendEmail(), Cron.Minutely);
-            RecurringJob.AddOrUpdate( () => BG_Methods.SendEmailsAsync(), Cron.Minutely);
+            RecurringJob.AddOrUpdate( () => BG_Methods.SendEmailsAsync(), Cron.Daily);  
             RecurringJob.AddOrUpdate( () => BG_Methods.MakeTSAV(), Cron.Daily);
         
         }

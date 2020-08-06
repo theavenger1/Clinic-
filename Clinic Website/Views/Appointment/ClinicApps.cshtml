@@ -1,69 +1,82 @@
 ﻿@model IEnumerable<Clinic_Website.Models.Appointment>
 @using Clinic_Website.Models
 @{
-    ViewBag.Title = "ClinicApps";
+    ViewBag.Title = "Clinic Appointments";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<h2>ClinicApps</h2>
-
-
-
-<table class="table">
-    <tr>
-        <th>
-            Status
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Clinic.ClinicName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PatientState.StateName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DayofApp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeStart)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date_Created)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AppointmentStatus.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Clinic.ClinicName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PatientState.StateName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prescription)
-            </td>
-            <td>
-                @item.DayofApp.ToString("dddd, dd MMMM yyyy")
-            </td>
-            <td>
-                @item.TimeStart.GetDisplayName()
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date_Created)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
-             
-            </td>
-        </tr>
+<style>
+    body {
+        font-size: 18px;
     }
 
+    tr td {
+        height: 70px;
+   
+    }
+</style>
+
+<h2 class="mt-5" style="position:absolute; top:150px; left:400px;">Clinic Appointments</h2>
+
+<table class="table  my-5">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Status
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clinic.ClinicName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PatientState.StateName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DayofApp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Created)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppointmentStatus.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clinic.ClinicName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PatientState.StateName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prescription)
+                </td>
+                <td>
+                    @item.DayofApp.ToString("dddd, dd MMMM yyyy")
+                </td>
+                <td>
+                    @item.TimeStart.GetDisplayName()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Created)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+
+                </td>
+            </tr>
+        }
+        </tbody>
 </table>
+
+ 

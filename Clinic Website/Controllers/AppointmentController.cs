@@ -113,14 +113,14 @@ namespace Clinic_Website.Controllers
             // check if he has a previous Patient state with same name with same category 
             string patientstatename = f["pa"];
 
-            List<Appointment> check;   
+            List<Appointment> check =new List<Appointment>();   
 
-
+            
             var ExpatientStates = db.PatientStates.Where(x => x.PatientId == currentUserId && x.StateName == patientstatename).ToList();
-          
+          if (ExpatientStates.Count != 0) { 
              var st1 = ExpatientStates.FirstOrDefault();
               check = db.Appointments.Where(u => u.PatientStateId == st1.Id && u.Clinic.CategoryId == clinic.CategoryId).ToList();
-            
+            }
             //if (check.Count == 0)
             PatientState p;
             // new patientstate if not there one
@@ -257,13 +257,15 @@ namespace Clinic_Website.Controllers
         {
             string sts = f["sts"].ToString();
             string patientstatename = f["PSED"];
-          
-            
+
+            var patientState = db.PatientStates.Find(app.PatientStateId);
             //CHANGE STATE NAME TO NEW NAME 
             if (patientstatename != null)
             {
-                var x = db.PatientStates.Find(app.PatientStateId);
-                x.StateName = patientstatename;
+
+                patientState.StateName = patientstatename;
+                db.Entry(patientState).State = EntityState.Modified;
+                db.SaveChanges();
             }
           
             if (ModelState.IsValid)
@@ -272,22 +274,15 @@ namespace Clinic_Website.Controllers
                 app.AppointmentStatusId = APPSTATid;
                StatusHistory s = new StatusHistory { StatusId = APPSTATid, AppointmentId = app.Id, Details = "Doctor" };
                 db.StatusHistories.Add(s);
-
+                db.Entry(app).State = EntityState.Modified;
+                db.SaveChanges();
 
                 //check cancel before app date 
-             var cancel_Id=   db.AppointmentStatus.Where(sa => sa.Name == "Cancelled").FirstOrDefault().Id;
+                var cancel_Id=   db.AppointmentStatus.Where(sa => sa.Name == "Cancelled").FirstOrDefault().Id;
                 
-                if (APPSTATid == cancel_Id && (app.DayofApp - DateTime.Today).TotalDays < 1)
+                if (APPSTATid == cancel_Id && (app.DayofApp - DateTime.Today).TotalDays > 0)
 
                 {
-                    SendEmailController e1 = new SendEmailController();
-                    string S = app.TimeStart.GetDisplayName();
-                    string Name = app.PatientState.Patient.UserName;
-                    string Email = app.PatientState.Patient.Email;
-
-
-                    var task=   e1.SendEmail(S, Name, Email, "2");
-
                     // make the slot taken = false      
                     var a = db.AvailableTimesLists.Find(app.Slot);
                     a.Taken = false;
@@ -296,9 +291,17 @@ namespace Clinic_Website.Controllers
                     db.SaveChanges();
 
 
-                    db.Entry(app).State = EntityState.Modified;
-                    db.SaveChanges();
-                      
+                    SendEmailController e1 = new SendEmailController();
+                    string S = app.TimeStart.GetDisplayName();
+                    string Name = patientState.Patient.UserName;
+                    string Email = patientState.Patient.Email;
+
+
+                    var task=   e1.SendEmail(S, Name, Email, "2");
+
+                   
+
+                  
                     return RedirectToAction("ClinicApps", new { id = app.ClinicId });
                 }
 
@@ -307,7 +310,7 @@ namespace Clinic_Website.Controllers
                 var Attended_Id = db.AppointmentStatus.Where(sa => sa.Name == "Attended").FirstOrDefault().Id;
                 if (APPSTATid == Attended_Id)
                 {
-                    var pat = db.Users.Find(app.PatientState.PatientId);
+                    var pat = db.Users.Find(patientState.PatientId);
                     var no = db.Appointments.Where(c => c.PatientState.PatientId == pat.Id && c.AppointmentStatusId != cancel_Id).ToList().Count;
                     pat.Rate += 1/no;
                     db.Entry(pat).State = EntityState.Modified;
@@ -322,14 +325,13 @@ namespace Clinic_Website.Controllers
                 var NAttended_Id = db.AppointmentStatus.Where(sa => sa.Name == "Not Attended").FirstOrDefault().Id;
                 if (APPSTATid == NAttended_Id)
                 {
-                    var pat = db.Users.Find(app.PatientState.PatientId);
+                    var pat = db.Users.Find(patientState.PatientId);
                     var no = db.Appointments.Where(c => c.PatientState.PatientId == pat.Id && c.AppointmentStatusId != cancel_Id).ToList().Count;
                     pat.Rate -= 1/no;
                     db.Entry(pat).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    db.Entry(app).State = EntityState.Modified;
-                    db.SaveChanges();
+                
                     return RedirectToAction("ClinicApps", new { id = app.ClinicId });
 
                 }

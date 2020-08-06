@@ -133,7 +133,7 @@
                     <div class="row align-items-center justify-content-between d-flex">
                         <div id="logo">
                             <a href="index.html">
-                                <img src="assets/images/logo/logo2.png" alt="" title="" width="110"
+                                <img src="~/NewFolder/aassets/images/logo/logo2.png" alt="" title="" width="110"
                                      height="100" />
                             </a>
                         </div>
@@ -145,8 +145,8 @@
                         <input type="text" name="searchName" id="searchName" placeholder="Search Here.." />}
                                 </li>
                                 <li class="menu-active"><a href="index.html">Home</a></li>
-                                <li><a href="clinics.html">clinics</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="~/Home/index">clinics</a></li>
+                                <li><a href="~/Home/Contact">Contact</a></li>
                                 <li> @Html.Partial("_Login")</li>
                             </ul>
 
@@ -161,9 +161,9 @@
         <!-- Header Area End -->
         <!--body-->
         <div class="container">
-            <div class="row" id="bodyDiv">
+          
                 @RenderBody()
-            </div>
+           
         </div>
 
 
