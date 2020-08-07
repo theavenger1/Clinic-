@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Clinic_Website.Models.DayList>
+@using Clinic_Website.Models
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Clinic.ClinicName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DayName)
+        </th>
+
+        <th>
+          Available Times 
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clinic.ClinicName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DayName)
+            </td>
+            <td>
+                @foreach (var item1 in item.AvailableTimes.ToList())
+                {
+                   
+                   @item1.Slot_start.GetDisplayName() @:
+                    @:
+                }
+
+
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit Avaiable Times", "Edit", "Clinics", new { id=Model.FirstOrDefault().ClinicId }, htmlAttributes: new { @class = "" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

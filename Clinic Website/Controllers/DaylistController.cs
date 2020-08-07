@@ -27,7 +27,8 @@ namespace Clinic_Website.Controllers
 
                 return View(model);
             }
-
+        
+        [Authorize(Roles = "Doctor")]
         public ActionResult YourclinicDaylist()
         {
             string currentUserId = User.Identity.GetUserId();
@@ -39,7 +40,20 @@ namespace Clinic_Website.Controllers
 
             return View(model);
         }
+        [Authorize(Roles = "Doctor")]
+        public ActionResult ClinicDays(int? Id)
+        {
+            string currentUserId = User.Identity.GetUserId();
 
+            var model = from r in db.DayLists
+                        where r.Clinic.userId == currentUserId && r.ClinicId==Id
+                        orderby r.Id
+                        select r;
+
+            
+
+            return View(model);
+        }
         [HttpGet]
         public ActionResult Create()
             {
@@ -126,7 +140,7 @@ namespace Clinic_Website.Controllers
                 db.DayLists.Remove(day);
                 db.SaveChanges();
 
-                return RedirectToAction("YourclinicDaylist");
+                return RedirectToAction("ClinicDays",new { Id=id });
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

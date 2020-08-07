@@ -29,7 +29,7 @@ td span {
 }
 
 .single-slide div:hover {
-    background-color: orangered;
+    background-color: darkcyan;
     color: white;
 }
 
@@ -55,3 +55,21 @@ td span {
     color: white;
 }
 
+.single-slide {
+    max-height: 210px;
+    overflow-y: scroll;
+}
+
+
+.single-slide::-webkit-scrollbar {
+    width: 7px;
+}
+
+.single-slide::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.single-slide::-webkit-scrollbar-thumb {
+    background-color: #B0D4CE;
+    outline: 1px solid slategrey;
+}

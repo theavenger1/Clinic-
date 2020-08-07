@@ -79,7 +79,7 @@ namespace Clinic_Website.Controllers
                 db.SaveChanges();
 
                
-                return RedirectToAction("YourclinicDaylist", "daylist");
+                return RedirectToAction("YourClinics");
             }
 
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName", clinic.CategoryId);
@@ -189,7 +189,7 @@ namespace Clinic_Website.Controllers
                 
                 db.Entry(clinic).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("YourClinics");
                 
             }
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName", clinic.CategoryId);

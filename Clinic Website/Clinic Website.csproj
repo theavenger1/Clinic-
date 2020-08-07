@@ -283,6 +283,10 @@
     <Compile Include="Migrations\202008051431039_rate double.Designer.cs">
       <DependentUpon>202008051431039_rate double.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008071313567_cateogry.cs" />
+    <Compile Include="Migrations\202008071313567_cateogry.Designer.cs">
+      <DependentUpon>202008071313567_cateogry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
@@ -1410,6 +1414,7 @@
     <Content Include="Views\front\Thumbs.db" />
     <Content Include="Views\Account\Info.cshtml" />
     <Content Include="Views\Shared\banner.cshtml" />
+    <Content Include="Views\Daylist\ClinicDays.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002071433359_ClinicWebsiteData.resx">
@@ -1480,6 +1485,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008051431039_rate double.resx">
       <DependentUpon>202008051431039_rate double.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008071313567_cateogry.resx">
+      <DependentUpon>202008071313567_cateogry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

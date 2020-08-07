@@ -11,6 +11,7 @@ namespace Clinic_Website.Models
     public class Category
     {
         [Key]
+        [DisplayName("Category")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
