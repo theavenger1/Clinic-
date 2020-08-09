@@ -2,9 +2,7 @@
 @using Clinic_Website.Models
 
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -28,22 +26,27 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DayName)
             </td>
-            <td>
+            <td style="width:700px; line-height:30px">
+
                 @foreach (var item1 in item.AvailableTimes.ToList())
                 {
-                   
-                   @item1.Slot_start.GetDisplayName() @:
-                    @:
-                }
+                <span class="mr-2 border-right">
+                    @item1.Slot_start.GetDisplayName()  
+                </span>
+                        }
 
-
-            </td>
+                
+                </td>
 
             <td>
                 @Html.ActionLink("Edit Avaiable Times", "Edit", "Clinics", new { id=Model.FirstOrDefault().ClinicId }, htmlAttributes: new { @class = "" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id },  new { onclick = "return confirm('Are sure want to delete?');" })
             </td>
         </tr>
     }
 
 </table>
+<p>
+    @Html.ActionLink("Create New", "Create", new { }, htmlAttributes: new { @class = "btn btn-outline-primary" })
+</p>
+ 

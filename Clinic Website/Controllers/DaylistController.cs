@@ -104,7 +104,7 @@ namespace Clinic_Website.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("YourclinicDaylist");
+                return RedirectToAction("ClinicDays",new { Id= clinicid });
             }
 
 

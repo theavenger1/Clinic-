@@ -414,9 +414,12 @@
     <Content Include="NewFolder\assets\images\feed7.jpg" />
     <Content Include="NewFolder\assets\images\feed8.jpg" />
     <Content Include="NewFolder\assets\images\hotline-bg.jpg" />
+    <Content Include="NewFolder\assets\images\logo\13d63320-6b46-4023-868c-94364abd36e9_200x200.png" />
+    <Content Include="NewFolder\assets\images\logo\f564e696-315f-4d69-b104-9694c601b6d8_200x200.png" />
     <Content Include="NewFolder\assets\images\logo\favicon.png" />
     <Content Include="NewFolder\assets\images\logo\favicon2.png" />
     <Content Include="NewFolder\assets\images\logo\logo.png" />
+    <Content Include="NewFolder\assets\images\logo\logo0.png" />
     <Content Include="NewFolder\assets\images\logo\logo1.png" />
     <Content Include="NewFolder\assets\images\logo\logo2.png" />
     <Content Include="NewFolder\assets\images\logo\logo3.png" />
@@ -784,6 +787,9 @@
     <Content Include="NewFolder\node_modules\popper.js\src\utils\setAttributes.js" />
     <Content Include="NewFolder\node_modules\popper.js\src\utils\setStyles.js" />
     <Content Include="NewFolder\node_modules\popper.js\src\utils\setupEventListeners.js" />
+    <Content Include="NewFolder\pressure.jpg" />
+    <Content Include="NewFolder\style3.css" />
+    <Content Include="NewFolder\user-icon-png-transparent-8.png" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap-4.1.3.min.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1118,7 +1124,7 @@
     <Content Include="Scripts\superfish.min.js" />
     <Content Include="Scripts\wow.min.js" />
     <Content Include="Views\clinics.html" />
-    <Content Include="Views\index.html" />
+    <None Include="Views\Home\home.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1126,6 +1132,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="Views\Home\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

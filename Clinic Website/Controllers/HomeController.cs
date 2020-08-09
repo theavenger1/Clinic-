@@ -17,8 +17,14 @@ namespace WebApplication2.Controllers
         private ApplicationDbContext DB = new ApplicationDbContext();
         public ActionResult Index()
         {
-           
-            return View(DB.Categories.ToList());
+            ViewBag.CategoryId = new SelectList(DB.Categories, "Id", "CategoryName");
+
+            return View(DB.Clinics.ToList());
+        }
+        public ActionResult home()
+        {
+
+            return View();
         }
         public ActionResult Details(int ClinicId , int? be) {
             var clinic = DB.Clinics.Find(ClinicId);
@@ -238,5 +244,41 @@ namespace WebApplication2.Controllers
             ||aa.Category.CategoryDescription.Contains(searchName)).ToList();
             return View(result);
         }
+
+
+        [HttpGet]
+        public ActionResult filterbycatogery(string x,  string id)
+        {
+            int ID = int.Parse(id);
+            var model = from b in DB.Clinics
+                        where b.CategoryId == ID && b.ClinicName.Contains(x)
+                        select b;
+
+         
+         
+            ViewBag.CategoryId = new SelectList(DB.Categories, "Id", "CategoryName");
+
+
+            return View("Index", model);
+        }
+
+        //public ActionResult filterbyprice(string max, string min)
+        //{
+
+        //    decimal Max = decimal.Parse(max);
+        //    decimal Min = decimal.Parse(min);
+        //    var model = from b in db.books
+        //                where (Max > b.book_cost) && (b.book_cost > Min)
+        //                select b;
+
+
+        //    return View("Index", model);
+        //}
+
+
+
+
+
+
     }
 }

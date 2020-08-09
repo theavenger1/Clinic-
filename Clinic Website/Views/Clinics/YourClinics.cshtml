@@ -14,7 +14,7 @@
 
     tr td {
         height: 70px;
-        min-width:300px;
+        min-width:250px;
     }
 
 </style>
@@ -75,7 +75,7 @@
                 @Html.ActionLink("View App", "ClinicApps", "Appointment", new { id = item.Id }, htmlAttributes: new { @class = "" }) |
                 @Html.ActionLink("Clinic Days", "ClinicDays", "Daylist", new { id = item.Id }, htmlAttributes: new { @class = "" }) |
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are sure want to delete?');" })
 
             </td>
         </tr>

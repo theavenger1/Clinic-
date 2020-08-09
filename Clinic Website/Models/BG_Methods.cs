@@ -29,7 +29,21 @@ namespace Clinic_Website.Models
             }
         
         }
-         
+
+        public static async Task SendCancelEmailsAsync( string S,string Name ,string Email)
+
+        {
+             
+            SendEmailController e2 = new SendEmailController();
+          
+
+           
+              
+                await e2.SendEmail(S, Name, Email, "2");
+
+            
+
+        }
         public static void MakeTSAV()
         {
             ApplicationDbContext db = new ApplicationDbContext();

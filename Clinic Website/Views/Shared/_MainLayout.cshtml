@@ -9,16 +9,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Page Title -->
-    <title>Cure</title>
+    <title>HealthCode</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="~/NewFolder/assets/images/logo/favicon2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="~/NewFolder/assets/images/logo/f564e696-315f-4d69-b104-9694c601b6d8_200x200.png" type="image/x-icon">
+    
 
     <!-- CSS Files -->
 
     <link rel="stylesheet" href="~/NewFolder/assets/css/animate-3.7.0.css">
     <link rel="stylesheet" href="~/NewFolder/assets/css/font-awesome-4.7.0.min.css">
-    
+
     <link rel="stylesheet" href="~/NewFolder/assets/css/bootstrap-4.1.3.min.css">
     <link rel="stylesheet" href="~/NewFolder/assets/css/owl-carousel.min.css">
     <link rel="stylesheet" href="~/NewFolder/assets/css/jquery.datetimepicker.min.css">
@@ -133,8 +134,7 @@
                     <div class="row align-items-center justify-content-between d-flex">
                         <div id="logo">
                             <a href="index.html">
-                                <img src="~/NewFolder/aassets/images/logo/logo2.png" alt="" title="" width="110"
-                                     height="100" />
+                                <img src="~/NewFolder/assets/images/logo/13d63320-6b46-4023-868c-94364abd36e9_200x200.png" />
                             </a>
                         </div>
                         <nav id="nav-menu-container">
@@ -142,9 +142,10 @@
                                 <li>
                                     @using (Html.BeginForm("Search", "Home", FormMethod.Post))
                                     {
-                        <input type="text" name="searchName" id="searchName" placeholder="Search Here.." />}
+                        <input type="text" name="searchName"  placeholder="Search Here.." />
+                                    }
                                 </li>
-                                <li class="menu-active"><a href="index.html">Home</a></li>
+                                <li class="menu-active"><a href="~/Home/home">Home</a></li>
                                 <li><a href="~/Home/index">clinics</a></li>
                                 <li><a href="~/Home/Contact">Contact</a></li>
                                 <li> @Html.Partial("_Login")</li>

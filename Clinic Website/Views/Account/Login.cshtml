@@ -1,33 +1,84 @@
-﻿@using Clinic_Website.Models
+﻿@{
+
+    Layout = null;
+}
+
+@using Clinic_Website.Models
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in";
 }
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="row BackgroundPhoto" style="margin:0 auto; font-size:25px; " >
-    <div>
-        <section id="loginForm" >
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <img width="300"height="300" src="~/Content/av.png" class="av" />
-                <h2>Login</h2>
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Page Title -->
+    <title>HealthCode</title>
 
-                <p>User Name</p>
-                @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Enter Name" })
-                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/NewFolder/assets/images/logo/f564e696-315f-4d69-b104-9694c601b6d8_200x200.png" type="image/x-icon">
+    <link rel="stylesheet" href="~/NewFolder/assets/css/bootstrap-4.1.3.min.css">
 
-                <p>Password</p>
-                @Html.PasswordFor(m => m.Password, new { @placeholder = "***********" })
-                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-
-                <input type="submit" value="Log in" />
-
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-            }
-        </section>
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader Starts -->
+    <div class="preloader">
+        <div class="spinner"></div>
     </div>
-</div>
+    <!-- Preloader End -->
+
+    <div class="row BackgroundPhoto my-5 py-5" style="margin:0 auto; font-size:20px; ">
+        <div class="mx-auto bg-white rounded border-1 shadow p-4">
+
+            <div class="d-flex flex-column align-items-center">
+                <img width="80" height="80" src="~/NewFolder/user-icon-png-transparent-8.png" />
+                <h2>Welcome</h2>
+            </div>
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Username</label>
+                        @Html.TextBoxFor(m => m.UserName, new { id = "exampleInputEmail1", @class = "form-control", @placeholder = "Enter Name" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "exampleInputPassword1", @placeholder = "***********" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                    </div> 
+ 
+                    <input class="btn btn-primary" type="submit" value="Log in" />
+ 
+                    <div id="da">Don't have an account? <a href="~/Account/Register"><label id="lbls">Sign up</label></a></div>
+  
+                }
+            </section>
+        </div>
+    </div>
+
+
+    <script src="~/NewFolder/assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/bootstrap-4.1.3.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/wow.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/owl-carousel.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/jquery.nice-select.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/superfish.min.js"></script>
+    
+
+</body>
+</html>

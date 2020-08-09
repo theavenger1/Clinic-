@@ -64,10 +64,7 @@ namespace Clinic_Website
             IdentityRole role = new IdentityRole();
             if (!roleManger.RoleExists("Admins"))
             {
-                if (!roleManger.RoleExists("Assisstant"))
-                {
-                    role.Name = "Assisstant";
-                }
+                
 
                 if (!roleManger.RoleExists("Doctor"))
                 {

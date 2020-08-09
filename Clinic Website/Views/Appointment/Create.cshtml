@@ -1,57 +1,381 @@
-﻿@model Clinic_Website.Models.Appointment
+﻿@{
 
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    Layout = null;
 }
 
+@model Clinic_Website.Models.Clinic
+@using Clinic_Website.Models
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <!-- Required Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Page Title -->
+    <title>HealthCode</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/NewFolder/assets/images/logo/f564e696-315f-4d69-b104-9694c601b6d8_200x200.png" type="image/x-icon">
+
+    <!-- CSS Files -->
+
+    <link rel="stylesheet" href="~/NewFolder/assets/css/animate-3.7.0.css">
+    <link rel="stylesheet" href="~/NewFolder/assets/css/font-awesome-4.7.0.min.css">
+    <link rel="stylesheet" href="~/NewFolder/assets/css/bootstrap-4.1.3.min.css">
+    <link rel="stylesheet" href="~/NewFolder/assets/css/owl-carousel.min.css">
+    <link rel="stylesheet" href="~/NewFolder/assets/css/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="~/NewFolder/assets/css/linearicons.css">
+    <link rel="stylesheet" href="~/NewFolder/assets/css/style.css">
+    <link rel="stylesheet" href="~/NewFolder/assets/css/clinic.css">
+
+    <style>
+        .booking {
+            background: rgba(255,255,255,1);
+            position: relative;
+            top: -50px;
+            right: -600px;
+            max-width: 500px;
+            z-index:100;
+        }
+        iframe {
+            position: relative;
+            top: -600px;
+            right: -550px;
+        }
+
+        .details {
+            position: relative;
+            top: -300px;
+          
+            
+        }
+        .other-page {
+            background-image: url('../../NewFolder/pressure.jpg');
+            height: 500px;
+        }
+
+        #header {
+            background: white;
+        }
+
+        
+    </style>
+</head>
+<body>
     <div>
-        <h2>Create</h2>
 
-        @using (Html.BeginForm())
-        {
+        <!-- Preloader Starts -->
+        <div class="preloader">
+            <div class="spinner"></div>
+        </div>
+        <!-- Preloader End -->
+        <!-- Banner Area Starts -->
+        <section class="banner-area other-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
 
-            @Html.AntiForgeryToken()
-
-            <h4>Appointment</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-5 col-form-label">Purpose</label>
-
-                <div class="col-sm-7">
-                    <input type="text" name="pa" class="form-control" id="inputEmail3">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-5 col-form-label">Day of Appointment</label>
-                <div class="col-sm-7">
-                    @ViewBag.date
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-5 col-form-label">Time</label>
-                <div class="col-sm-7">
-                    @ViewBag.time
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-5 col-form-label">Clinic </label>
-                <div class="col-sm-7">
-                    @ViewBag.Clinic
-                </div>
-            </div>
-
-
-            using (Html.BeginForm("Create", "Appointment", FormMethod.Post, new { date = ViewBag.date, time = ViewBag.time, Id = ViewBag.ClinicId, time1 = ViewBag.timeid }))
-            {
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Make an appoimtment" class="btn btn-default" />
                     </div>
                 </div>
-            }
+            </div>
+        </section>
 
-        }
+
+
+        <!-- Banner Area End -->
+        <!-- Header Area Starts -->
+        <header class="header-area">
+            <div class="header-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 d-md-flex">
+                            <h6 class="mr-3">
+                                <span class="mr-2"><i class="fa fa-mobile"></i></span> call us now! +20 103 302
+                                2863
+                            </h6>
+                            <h6 class="mr-3">
+                                <span class="mr-2"><i class="fa fa-envelope-o"></i></span> support@cure.com
+                            </h6>
+                            <h6><span class="mr-2"><i class="fa fa-map-marker"></i></span> Find our Location</h6>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="social-links">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="header">
+                <div class="container">
+                    <div class="row align-items-center justify-content-between d-flex">
+                        <div id="logo">
+                            <a href="index.html">
+                                <img src="~/NewFolder/assets/images/logo/13d63320-6b46-4023-868c-94364abd36e9_200x200.png" />
+
+                            </a>
+                        </div>
+                        <nav id="nav-menu-container">
+                            <ul class="nav-menu d-flex align-items-center">
+                                <li>
+                                    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                                    {
+                                        <input type="text" name="searchName" placeholder="Search Here.." />}
+                                </li>
+                                <li class="menu-active"><a href="~/Home/home">Home</a></li>
+                                <li><a href="~/Home/index">clinics</a></li>
+                                <li><a href="~/Home/Contact">Contact</a></li>
+                                <li> @Html.Partial("_Login")</li>
+                            </ul>
+
+
+
+                        </nav><!-- #nav-menu-container -->
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <h2 style="position:absolute; top:200px; left:35%; color:white">
+            We Care for Your <br>
+            Health Every Moment
+
+        </h2>
+
+        <div class="container" style="max-height:900px;">
+            <div class="booking p-4 border-1 shadow rounded">
+                @using (Html.BeginForm())
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    <h4>Appointment</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-5 col-form-label">Purpose</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" name="pa" class="form-control" id="inputEmail3">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Day of Appointment</label>
+                        <div class="col-sm-7">
+                            @ViewBag.date
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Time</label>
+                        <div class="col-sm-7">
+                            @ViewBag.time
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Clinic </label>
+                        <div class="col-sm-7">
+                            @ViewBag.Clinic
+                        </div>
+                    </div>
+
+
+                    using (Html.BeginForm("Create", "Appointment", FormMethod.Post, new { date = ViewBag.date, time = ViewBag.time, Id = ViewBag.ClinicId, time1 = ViewBag.timeid }))
+                    {
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Make an appoimtment" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+
+                }
+            </div>
+
+            <div class="details">
+                <div class="col-md-6">
+                    <section class="department-area">
+                        <div class="department-slider owl-carousel">
+
+                            @{
+
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    <div class="single-slide text-center bg-white text-white mb-0">
+                                        <div> @DateTime.Now.AddDays(i).ToString("MMMM dd")   </div>
+
+                                        @{ var o = Model.DayLists.ToList().Find(x => x.DayName.GetDisplayName() == DateTime.Now.AddDays(i).DayOfWeek.ToString());
+
+                                            if (o != null)
+                                            {
+
+                                                foreach (var item1 in o.AvailableTimes.ToList())
+                                                {
+                                                    if (item1.Taken == false)
+                                                    {
+                                                        <div class="time-slot">
+                                                            @Html.ActionLink(item1.Slot_start.GetDisplayName(), "Create", "Appointment", new { date = @DateTime.Today.AddDays(i), time = item1.Slot_start, Id = item1.DayList.Clinic.Id, time1 = item1.Id }, htmlAttributes: new { @class = "" })
+                                                        </div>
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <div> Not Available  </div> } }
+                                    </div> }
+                            }
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-md-5 bg-white border-1 shadow rounded " style="margin-top:100px;">
+                    <div class="card-body">
+                        <h3 class="card-title">@Html.DisplayFor(modelItem => Model.ClinicName)</h3>
+                        <!-- start contacts -->
+                        <table class="mw-50">
+                            <tr>
+                                <td><i class="fa fa-stethoscope fa-lg"></i></td>
+                                <td>
+                                    <span>Clinic Speciality : </span>@Html.DisplayFor(modelItem => Model.Category.CategoryName)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-money fa-lg"></i></td>
+                                <td><span>Fees: </span>@Html.DisplayFor(modelItem => Model.Price)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-globe fa-lg"></i></td>
+                                <td><span>Address: </span> @Html.DisplayFor(modelItem => Model.Address)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-phone fa-lg"></i></td>
+                                <td><span>Telephone: </span> @Html.DisplayFor(modelItem => Model.MobileNumber)</td>
+                            </tr>
+                          
+                            <tr>
+                                <td>  <i class="fa fa-info-circle"></i></td>
+                                <td><span> Info: </span> @Html.DisplayFor(modelItem => Model.ClinicDescription)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=@Convert.ToString(Model.Latitude, new System.Globalization.CultureInfo("en-US"))%20%20+@Convert.ToString(Model.Longitude , new System.Globalization.CultureInfo("en-US"))&key=AIzaSyBDV8rIV9awqVrrzv33NjfB1ekE_5UNgZk" allowfullscreen></iframe>
+
         </div>
+
+
+
+
+
+        <!--Footer-->
+        <!-- Footer Area Starts -->
+        <footer class="footer-area section-padding">
+            <div class="footer-widget">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-3">
+                            <div class="single-widget-home mb-5 mb-lg-0">
+                                <h3 class="mb-4">CURE</h3>
+                                <ul>
+                                    <li class="mb-2"><a href="#">Home</a></li>
+                                    <li class="mb-2"><a href="#">Doctors</a></li>
+                                    <li class="mb-2"><a href="#">Clinics</a></li>
+                                    <li><a href="#">Contact US</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 offset-xl-1 col-lg-6">
+                            <div class="single-widget-home mb-5 mb-lg-0">
+                                <h3 class="mb-4">newsletter</h3>
+                                <p class="mb-4">You can trust us. we only send promo offers, not a single.</p>
+                                <form action="#">
+                                    <input type="email" placeholder="Your email here" onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Your email here'" required>
+                                    <button type="submit" class="template-btn">subscribe now</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 offset-xl-1 col-lg-3">
+                            <div class="single-widge-home">
+                                <h3 class="mb-4">instagram feed</h3>
+                                <div class="feed">
+                                    <img src="assets/images/feed1.jpg" alt="feed">
+                                    <img src="assets/images/feed2.jpg" alt="feed">
+                                    <img src="assets/images/feed3.jpg" alt="feed">
+                                    <img src="assets/images/feed4.jpg" alt="feed">
+                                    <img src="assets/images/feed5.jpg" alt="feed">
+                                    <img src="assets/images/feed6.jpg" alt="feed">
+                                    <img src="assets/images/feed7.jpg" alt="feed">
+                                    <img src="assets/images/feed8.jpg" alt="feed">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <span>
+                                Copyright &copy;
+                                2020 All rights reserved | made with
+                                <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://CureTeam.com"
+                                                                                       target="_blank">CureTeam</a>
+                            </span>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="social-icons">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer Area End -->
+
+    </div>
+
+    <script src="~/NewFolder/assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/bootstrap-4.1.3.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/wow.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/owl-carousel.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/jquery.nice-select.min.js"></script>
+    <script src="~/NewFolder/assets/js/vendor/superfish.min.js"></script>
+    <script src="~/NewFolder/assets/js/main.js"></script>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"
+            integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J"
+            crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -11,6 +11,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Controllers;
+using Hangfire;
 
 namespace Clinic_Website.Controllers
 {
@@ -84,7 +85,7 @@ namespace Clinic_Website.Controllers
             if (c.Count >= 1)
             {
 
-             return RedirectToAction("Details", "Home", new { ClinicId = Id, be=1 });
+            // return RedirectToAction("Details", "Home", new { ClinicId = Id, be=1 });
 
             }
             ViewBag.ClinicId = Id;
@@ -92,8 +93,8 @@ namespace Clinic_Website.Controllers
             ViewBag.date = date.ToString("dddd, dd MMMM yyyy");
             ViewBag.time = time.GetDisplayName();
             ViewBag.timeid=time1;
-
-            return View();
+           
+            return View(db.Clinics.Find(Id));
         }
         [HttpPost]
         public ActionResult Create(DateTime date, TimeSlots time, int Id,int time1, FormCollection f)
@@ -291,17 +292,16 @@ namespace Clinic_Website.Controllers
                     db.SaveChanges();
 
 
-                    SendEmailController e1 = new SendEmailController();
+                  
                     string S = app.TimeStart.GetDisplayName();
                     string Name = patientState.Patient.UserName;
                     string Email = patientState.Patient.Email;
 
+                   BackgroundJob.Enqueue(() => BG_Methods.SendCancelEmailsAsync(S,Name,Email));
 
-                    var task=   e1.SendEmail(S, Name, Email, "2");
 
-                   
 
-                  
+
                     return RedirectToAction("ClinicApps", new { id = app.ClinicId });
                 }
 
@@ -312,7 +312,7 @@ namespace Clinic_Website.Controllers
                 {
                     var pat = db.Users.Find(patientState.PatientId);
                     var no = db.Appointments.Where(c => c.PatientState.PatientId == pat.Id && c.AppointmentStatusId != cancel_Id).ToList().Count;
-                    pat.Rate += 1/no;
+                    pat.Rate += Math.Round(1.0 / no, 2);
                     db.Entry(pat).State = EntityState.Modified;
                     db.SaveChanges();
 
@@ -327,7 +327,8 @@ namespace Clinic_Website.Controllers
                 {
                     var pat = db.Users.Find(patientState.PatientId);
                     var no = db.Appointments.Where(c => c.PatientState.PatientId == pat.Id && c.AppointmentStatusId != cancel_Id).ToList().Count;
-                    pat.Rate -= 1/no;
+                    pat.Rate -= Math.Round(1.0 / no, 2);
+
                     db.Entry(pat).State = EntityState.Modified;
                     db.SaveChanges();
 
@@ -344,8 +345,9 @@ namespace Clinic_Website.Controllers
 
             return View();
         }
-       
-        
+
+      
+
         public ActionResult Cancel (int? id)
         {
             if (id == null)
