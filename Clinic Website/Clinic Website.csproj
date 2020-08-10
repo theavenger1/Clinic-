@@ -186,6 +186,7 @@
     <Compile Include="Controllers\DaylistController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PatientStateController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SendEmailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1124,6 +1125,7 @@
     <Content Include="Scripts\superfish.min.js" />
     <Content Include="Scripts\wow.min.js" />
     <Content Include="Views\clinics.html" />
+    <Content Include="Views\Appointment\State_Apps.cshtml" />
     <None Include="Views\Home\home.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1133,6 +1135,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Home\View.cshtml" />
+    <Content Include="Views\PatientState\YourStates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

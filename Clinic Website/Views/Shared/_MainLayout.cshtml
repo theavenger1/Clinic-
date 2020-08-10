@@ -32,54 +32,7 @@
     <div>
 
 
-        @*<nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbardiv">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-
-        <a href="~/Home" class="navbar-brand">
-                    <img id="clinicLogo" src="~/Content/unnamed.jpg" />
-                </a>
-            </div>
-
-            <div id="navbardiv" class="navbar-collapse collapse">
-                <ul id="navbar" class="nav navbar-nav">
-                    <li>
-                        <a href="~/Home">
-                            <i class="glyphicon glyphicon-home"></i>
-                            Main Page
-                        </a>
-                    </li>
-                    <li>
-                        <a href="~/Home/about">
-                            <i class="glyphicon glyphicon-info-sign"></i>
-                            About WebSite
-                        </a>
-                    </li>
-                    <li>
-                        <a href="~/Home/contact">
-                            <i class="glyphicon glyphicon-envelope"></i>
-                            Contact Us
-                        </a>
-                    </li>
-                    <li>
-                        @using (Html.BeginForm("Search", "Home", FormMethod.Post))
-                        {
-            <input type="text" name="searchName" id="searchName" placeholder="Search Here.." />}
-                    </li>
-                </ul>
-                Partial Login
-                @Html.Partial("_Login")
-            </div>*@
-
-        @*</div>
-        </nav>*@
-
+        
 
         <!-- Preloader Starts -->
         <div class="preloader">
@@ -142,7 +95,7 @@
                                 <li>
                                     @using (Html.BeginForm("Search", "Home", FormMethod.Post))
                                     {
-                        <input type="text" name="searchName"  placeholder="Search Here.." />
+                        <input type="text" name="searchName" class="border-0" placeholder="Search Here.." />
                                     }
                                 </li>
                                 <li class="menu-active"><a href="~/Home/home">Home</a></li>
@@ -161,7 +114,7 @@
         </header>
         <!-- Header Area End -->
         <!--body-->
-        <div class="container">
+        <div class="container" style="min-height:500px;">
           
                 @RenderBody()
            

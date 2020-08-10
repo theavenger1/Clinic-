@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Clinic_Website.Models.PatientState>
+
+@{
+    ViewBag.Title = "YourStates";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Your States</h2>
+ 
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.StateName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date_Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InProgress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+
+        <th>
+         # of Appointments 
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.StateName)
+    </td>
+    <td>
+        @item.Date_Created.ToString("MM/dd/yyyy")
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.InProgress)
+    </td>
+    <td>
+        @item.StartTime.ToString("MM/dd/yyyy")
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Appointments.Count)
+    </td>
+
+    <td>
+        @Html.ActionLink("Appointments", "State_Apps", "Appointment", new { state = item.Id }, htmlAttributes: new { })
+
+    </td>
+</tr>
+}
+
+</table>

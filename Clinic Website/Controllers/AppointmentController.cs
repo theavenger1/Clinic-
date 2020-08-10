@@ -73,21 +73,22 @@ namespace Clinic_Website.Controllers
             return View(model);
         }
 
+        public ActionResult State_Apps(int? state)
+        {
+            string currentUserId = User.Identity.GetUserId();
 
- 
+            var model = from r in db.Appointments
+                        where r.PatientStateId == state
+                        orderby r.Date_Created
+                        select r;
+  
+            return View(model.ToList());
+        }
+
         [HttpGet]
         public ActionResult Create(DateTime date, TimeSlots time, int Id, int time1 )
         {         
-            string currentUserId = User.Identity.GetUserId();
-
-            var c = db.Appointments.Where(x => x.PatientState.PatientId == currentUserId && x.ClinicId == Id && x.DayofApp == date).ToList();
-
-            if (c.Count >= 1)
-            {
-
-            // return RedirectToAction("Details", "Home", new { ClinicId = Id, be=1 });
-
-            }
+         
             ViewBag.ClinicId = Id;
             ViewBag.Clinic = db.Clinics.Find(Id).ClinicName;
             ViewBag.date = date.ToString("dddd, dd MMMM yyyy");
@@ -99,16 +100,27 @@ namespace Clinic_Website.Controllers
         [HttpPost]
         public ActionResult Create(DateTime date, TimeSlots time, int Id,int time1, FormCollection f)
         {
-          // check if patient has already make an appointment with same clinic in same day 
+            // check if patient has already made an appointment with same clinic in same day 
             string currentUserId = User.Identity.GetUserId();
-           var clinic= db.Clinics.Find(Id);
-            var c = db.Appointments.Where(x => x.PatientState.PatientId == currentUserId && x.ClinicId == Id && x.DayofApp == date).ToList();
+            var clinic= db.Clinics.Find(Id);
+            var c = db.Appointments.Where(x => x.PatientState.PatientId == currentUserId && x.ClinicId == Id && x.DayofApp == date&& x.AppointmentStatus.Name == "Scheduled").ToList();
 
-            if (c.Count > 1)
+            if (c.Count >= 1)
             { 
                 ViewBag.Result = "You have applied before !";
- 
-                return View();
+
+                return View(db.Clinics.Find(Id));
+            }
+           
+            // check if patient has made an appointment with another clinic in same time slot
+
+            var s= db.Appointments.Where(x => x.PatientState.PatientId == currentUserId &&  x.DayofApp == date && x.AppointmentStatus.Name == "Scheduled" && x.Slot==time1).ToList();
+
+            if (s.Count >= 1)
+            {
+                ViewBag.Result = "You have another appointment in this date !";
+
+                return View(db.Clinics.Find(Id));
             }
 
             // check if he has a previous Patient state with same name with same category 
@@ -194,9 +206,9 @@ namespace Clinic_Website.Controllers
             db.SaveChanges();
 
 
-            StatusHistory s = new StatusHistory { StatusId = model.First().Id, AppointmentId = app.Id, Details = "first" };
+            StatusHistory statushistory = new StatusHistory { StatusId = model.First().Id, AppointmentId = app.Id, Details = "first" };
 
-            db.StatusHistories.Add(s);
+            db.StatusHistories.Add(statushistory);
             db.SaveChanges();
             return RedirectToAction("MyAppointments");
 
@@ -261,6 +273,7 @@ namespace Clinic_Website.Controllers
 
             var patientState = db.PatientStates.Find(app.PatientStateId);
             //CHANGE STATE NAME TO NEW NAME 
+
             if (patientstatename != null)
             {
 
@@ -271,17 +284,22 @@ namespace Clinic_Website.Controllers
           
             if (ModelState.IsValid)
             {
+           #region change status & save this change into status history 
+
                 int APPSTATid = int.Parse(sts);
                 app.AppointmentStatusId = APPSTATid;
-               StatusHistory s = new StatusHistory { StatusId = APPSTATid, AppointmentId = app.Id, Details = "Doctor" };
+                StatusHistory s = new StatusHistory { StatusId = APPSTATid, AppointmentId = app.Id, Details = "Doctor" };
                 db.StatusHistories.Add(s);
                 db.Entry(app).State = EntityState.Modified;
                 db.SaveChanges();
-
-                //check cancel before app date 
-                var cancel_Id=   db.AppointmentStatus.Where(sa => sa.Name == "Cancelled").FirstOrDefault().Id;
+                #endregion
+              
                 
-                if (APPSTATid == cancel_Id && (app.DayofApp - DateTime.Today).TotalDays > 0)
+                //check cancel before app date 
+                var cancel_Id =   db.AppointmentStatus.Where(sa => sa.Name == "Cancelled").FirstOrDefault().Id;
+                
+
+                if (APPSTATid == cancel_Id && (app.DayofApp - DateTime.Today).TotalDays >= 0)
 
                 {
                     // make the slot taken = false      
@@ -305,7 +323,8 @@ namespace Clinic_Website.Controllers
                     return RedirectToAction("ClinicApps", new { id = app.ClinicId });
                 }
 
-                //other status 
+
+                 #region other status 
 
                 var Attended_Id = db.AppointmentStatus.Where(sa => sa.Name == "Attended").FirstOrDefault().Id;
                 if (APPSTATid == Attended_Id)
@@ -316,8 +335,7 @@ namespace Clinic_Website.Controllers
                     db.Entry(pat).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    db.Entry(app).State = EntityState.Modified;
-                    db.SaveChanges();
+                  
                     return RedirectToAction("ClinicApps", new { id = app.ClinicId });
                 }
             
@@ -338,9 +356,11 @@ namespace Clinic_Website.Controllers
                 }
 
                 //cancel after 
-                db.Entry(app).State = EntityState.Modified;
-                db.SaveChanges();
+                
                 return RedirectToAction("ClinicApps", new { id = app.ClinicId });
+
+                #endregion
+                 
             }
 
             return View();
