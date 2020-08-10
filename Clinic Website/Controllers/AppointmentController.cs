@@ -303,21 +303,24 @@ namespace Clinic_Website.Controllers
 
                 {
                     // make the slot taken = false      
+                    
                     var a = db.AvailableTimesLists.Find(app.Slot);
-                    a.Taken = false;
+                    if (a != null)
+                    {
+                        a.Taken = false;
 
-                    db.Entry(a).State = EntityState.Modified;
-                    db.SaveChanges();
+                        db.Entry(a).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        string S = app.TimeStart.GetDisplayName();
+                        string Name = patientState.Patient.UserName;
+                        string Email = patientState.Patient.Email;
+
+                        BackgroundJob.Enqueue(() => BG_Methods.SendCancelEmailsAsync(S, Name, Email));
 
 
-                  
-                    string S = app.TimeStart.GetDisplayName();
-                    string Name = patientState.Patient.UserName;
-                    string Email = patientState.Patient.Email;
-
-                   BackgroundJob.Enqueue(() => BG_Methods.SendCancelEmailsAsync(S,Name,Email));
-
-
+                    }
+                     
 
 
                     return RedirectToAction("ClinicApps", new { id = app.ClinicId });

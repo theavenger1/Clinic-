@@ -50,7 +50,7 @@ namespace Clinic_Website.Models
         [Required(ErrorMessage = "You must enter Price")]
         public int Price { get; set; }
 
-       
+  
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 

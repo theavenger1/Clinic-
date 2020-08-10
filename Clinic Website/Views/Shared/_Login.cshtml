@@ -9,103 +9,86 @@
         var db = new ApplicationDbContext();
         var UserId = User.Identity.GetUserId();
         var CurrentUser = db.Users.Where(a => a.Id == UserId).SingleOrDefault();
-         @Html.AntiForgeryToken()<!--prevent from attack-->         
-                    
-        
-      
-                        <li class="" >
-                            <a href="#"   data-toggle="dropdown">
-                              
-                                <strong>Hello, @CurrentUser.UserName</strong>
-                              
-                            </a>
-
-                            <ul class="dropdown-menu" style="background: none;">
-                                <li>
-                                    <div class="navbar-user">
-                                        <div class="row">
-                                          
-                                            <div>
-                                                <p class="text-right">
-                                                    <strong>@CurrentUser.UserName</strong>
-                                                </p>
-                                                @*
-        @{
-        var userStore = new UserStore<IdentityUser>();
-        UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(userStore);
+@Html.AntiForgeryToken()<!--prevent from attack-->
 
 
-        var rolename = userManager.GetRoles(CurrentUser.Id).FirstOrDefault().ToString();
-        //UserManager<ApplicationUser>.GetRoles(CurrentUser.Id.ToString()).FirstOrDefault();
-        }
-                                                *@
+
+                    <li class="">
+                        <a href="#" data-toggle="dropdown">
+
+                            <strong>Hello, @CurrentUser.UserName</strong>
+
+                        </a>
+
+                        <ul class="dropdown-menu" style="background: none;">
+                            <li>
+                                <div class="navbar-user">
+                                    <div class="row">
+
+                                        <div>
+                                            <p class="text-right">
+                                                <strong>@CurrentUser.UserName</strong>
+                                            </p>
 
 
-                                                @if (User.IsInRole("Doctor"))
+
+                                            @if (User.IsInRole("Doctor"))
+                                            {
+                                                //return the doctor clinics
+                        <a href="~/Clinics/YourClinics">Your Clinics</a> //return the clinics with it's applied patient
+
+                            <a href="~/Clinics/Create" class="">Add new Clinic</a> }
+                            else if (User.IsInRole("Patient"))
+                            {
+                                               <a href="~/Appointment/MyAppointments">My Appointments</a>
+                                                    <a href="~/PatientState/YourStates">Your States</a> }
+                                                else
                                                 {
-                                                    //return the doctor clinics
-                                            <strong>    <a href="~/Clinics/YourClinics">Your Clinics</a> </strong> //return the clinics with it's applied patient
-
-                                            <strong>               <a href="~/Clinics/Create" class="">Add new Clinic</a> </strong> }
-                                        else if (User.IsInRole("Patient"))
-                                        {
-                                            <strong> <a href="~/Appointment/MyAppointments">My Appointments</a> </strong> }
-                                        else
-                                        {
-                                            <strong>    <a href="~/Roles/Create">Add role</a></strong>
-                                            <strong>  <a href="~/Categories/Create" class="">Add Category</a> </strong>
-                                            <strong>    <a href="~/Home/GetDoctorsByAdmin" class=" ">All Doctors</a> </strong>
-                                                <a href="~/Home/GetPatientsByAdmin" class=" ">All Patient</a>}
+                                                         <a href="~/Roles/Create">Add role</a> 
+                        <strong>  <a href="~/Categories/Create" class="">Add Category</a> </strong>
+                                                <strong>    <a href="~/Home/GetDoctorsByAdmin" class=" ">All Doctors</a> </strong>
+                                                                        <a href="~/Home/GetPatientsByAdmin" class=" ">All Patient</a>}
 
 
-                                                <strong>  <a href="~/Account/EditProfile" class=" ">Edit Account</a></strong>
-                                  </div>
-                                                </div>
-                                                </div>
-                                </li>
-                              
-                                   <li>
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <p>
-                                                    <a href="javascript:document.getElementById('logoff').submit()" class=" ">Sign Out</a>
-                                                </p>
-                                            </div>
+                                            <a href="~/Account/EditProfile">Edit Account</a>
+                                            <a href="~/Account/EditInfo">Edit Info</a>
+                                            <a href="~/Account/ProfileInformation">Profile Information</a>
+
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p>
+                                                <a href="javascript:document.getElementById('logoff').submit()" class=" ">Sign Out</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li> }
+            }
+            else
+            {
+
+
+<li><a href="~/Account/Login">Sign-in</a></li>
+                <li><a href="~/Account/Register">Register</a></li> @*<ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="~/Account/Login">
+                                <i class="glyphicon glyphicon-user"></i>
+                                Login
+                            </a>
                         </li>
-
-                    }
-     }
-else
-{
-
-
-        <li><a href="~/Account/Login">Sign-in</a></li>
-        <li><a href="~/Account/Register">Register</a></li>
-
-
-
-
-        @*<ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="~/Account/Login">
-                    <i class="glyphicon glyphicon-user"></i>
-                    Login
-                </a>
-            </li>
-            <li>
-                <a href="~/Account/Register">
-                    <i class="glyphicon glyphicon-lock"></i>
-                    Register
-                </a>
-            </li>
-        </ul>*@
-                                                    
-                                                    
-                                                    
-                                                    
-}
+                        <li>
+                            <a href="~/Account/Register">
+                                <i class="glyphicon glyphicon-lock"></i>
+                                Register
+                            </a>
+                        </li>
+                    </ul>*@}

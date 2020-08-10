@@ -87,13 +87,14 @@ namespace Clinic_Website.Controllers
 
             d.ClinicId = int.Parse(clinicid);
             var c = db.Clinics.Find(d.ClinicId);
-            if (c.DayLists.ToList().Find(q => q.DayName == d.DayName) != null) { return RedirectToAction("YourclinicDaylist"); }
+            if (c.DayLists.ToList().Find(q => q.DayName == d.DayName) != null) {   return RedirectToAction("ClinicDays",new { Id= clinicid }); }
 
             if (ModelState.IsValid)
             {
 
 
                 db.DayLists.Add(d);
+                
                 for (int i = (int)c.StartTime; i < (int)c.EndTime; i++)
                 {
                     AvailableTimesList availableTimes = new AvailableTimesList { DayListId = d.Id, Taken = false, Slot_start = (TimeSlots)i };
@@ -102,6 +103,27 @@ namespace Clinic_Website.Controllers
 
                 }
 
+                //for 12 pm to 8:00 Am (if exists) 
+                if (c.EndTime < c.StartTime) {
+                        for (int i = (int)c.EndTime; i < (int)TimeSlots._23_00; i++)
+                        {
+                            AvailableTimesList availableTimes = new AvailableTimesList { DayListId = d.Id, Taken = false, Slot_start = (TimeSlots)i };
+
+                            db.AvailableTimesLists.Add(availableTimes);
+
+                        }
+
+                        for (int i = (int)TimeSlots._00_00; i < (int)c.StartTime; i++)
+                        {
+                            AvailableTimesList availableTimes = new AvailableTimesList { DayListId = d.Id, Taken = false, Slot_start = (TimeSlots)i };
+
+                            db.AvailableTimesLists.Add(availableTimes);
+
+                        }
+
+                }
+            
+                
                 db.SaveChanges();
 
                 return RedirectToAction("ClinicDays",new { Id= clinicid });
@@ -132,18 +154,20 @@ namespace Clinic_Website.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var user = User.Identity.GetUserId();
-
+          
             DayList day = db.DayLists.Find(id);
-
-            if (day.Clinic.userId == user)
-            {
+            int cliId = day.ClinicId;
+            //if (day.DayName.GetDisplayName() ==DateTime.Now.AddDays(4).DayOfWeek.ToString()) { 
+           
+          
                 db.DayLists.Remove(day);
                 db.SaveChanges();
 
-                return RedirectToAction("ClinicDays",new { Id=id });
-            }
+                return RedirectToAction("ClinicDays",new{ Id = cliId });
+            //}
 
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //return RedirectToAction("ClinicDays", new { Id = cliId });}
+       
 
         }
 

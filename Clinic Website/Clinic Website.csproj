@@ -288,17 +288,23 @@
     <Compile Include="Migrations\202008071313567_cateogry.Designer.cs">
       <DependentUpon>202008071313567_cateogry.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008101916183_Add password reset.cs" />
+    <Compile Include="Migrations\202008101916183_Add password reset.Designer.cs">
+      <DependentUpon>202008101916183_Add password reset.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
     <Compile Include="Models\AvailableTimesList.cs" />
     <Compile Include="Models\BG_Methods.cs" />
+    <Compile Include="Models\BloodType.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Clinic.cs" />
     <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\DayList.cs" />
     <Compile Include="Models\Days.cs" />
     <Compile Include="Models\DaysExtensions.cs" />
+    <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\PatientState.cs" />
     <Compile Include="Models\StatusHistory.cs" />
@@ -1126,6 +1132,8 @@
     <Content Include="Scripts\wow.min.js" />
     <Content Include="Views\clinics.html" />
     <Content Include="Views\Appointment\State_Apps.cshtml" />
+    <Content Include="Views\Account\EditInfo.cshtml" />
+    <Content Include="Views\Account\ProfileInformation.cshtml" />
     <None Include="Views\Home\home.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1498,6 +1506,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008071313567_cateogry.resx">
       <DependentUpon>202008071313567_cateogry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008101916183_Add password reset.resx">
+      <DependentUpon>202008101916183_Add password reset.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

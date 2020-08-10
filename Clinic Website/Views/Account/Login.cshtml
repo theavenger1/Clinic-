@@ -59,14 +59,17 @@
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "exampleInputPassword1", @placeholder = "***********" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
 
-                    </div> 
- 
+                    </div>
+
                     <input class="btn btn-primary" type="submit" value="Log in" />
- 
+
                     <div id="da">Don't have an account? <a href="~/Account/Register"><label id="lbls">Sign up</label></a></div>
-  
+
+                    <div>
+                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                       </div>
                 }
-            </section>
+                </section>
         </div>
     </div>
 

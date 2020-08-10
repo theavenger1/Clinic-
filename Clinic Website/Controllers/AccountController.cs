@@ -69,6 +69,30 @@ namespace Clinic_Website.Controllers
             //  ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+        [Authorize]
+        public ActionResult EditInfo()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditInfo(EditInfo editInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                var UserID = User.Identity.GetUserId();
+                var user = db.Users.Find(UserID);
+                user.BloodType = editInfo.BloodType;
+                user.Gender = editInfo.Gender;
+                user.Weight = editInfo.Weight;
+                user.Height = editInfo.Height;
+                db.SaveChanges();
+                return RedirectToAction("ProfileInformation", "Account");
+            }
+            return View(editInfo);
+        }
+
 
         //
         // POST: /Account/Login
@@ -270,8 +294,6 @@ namespace Clinic_Website.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -279,7 +301,7 @@ namespace Clinic_Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -288,15 +310,18 @@ namespace Clinic_Website.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", callbackUrl);
+                // await UserManager.SendEmailAsync(user.Id, "Confirm your account", callbackUrl);
+
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
 
         //
         // GET: /Account/ForgotPasswordConfirmation
@@ -325,7 +350,7 @@ namespace Clinic_Website.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
@@ -339,7 +364,6 @@ namespace Clinic_Website.Controllers
             AddErrors(result);
             return View();
         }
-
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]

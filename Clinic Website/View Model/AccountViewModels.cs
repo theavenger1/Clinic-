@@ -11,7 +11,16 @@ namespace Clinic_Website.Models
         public string Email { get; set; }
     }
 
-    public class ExternalLoginListViewModel
+    public class EditInfo
+    {
+        public BloodType BloodType { get; set; }
+        public Gender Gender { get; set; }
+        public short Height { get; set; }
+        public short Weight { get; set; }
+
+    }
+
+        public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }
     }

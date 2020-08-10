@@ -107,36 +107,58 @@ namespace Clinic_Website.Controllers
         //    db.SaveChanges();
         //}
 
-        //private void ProduceAvaApp(Clinic c) {
+        private void ProduceAvaApp(List<DayList> dayList ,Clinic c)
+        {
+            foreach (var item in dayList)
+            {  
+                var model = from r in db.AvailableTimesLists
+                            where r.DayListId == item.Id
+                            select r;
+              
+                var modeltolist = model.ToList();
+                foreach (var slot in modeltolist)
+                {
+                    db.AvailableTimesLists.Remove(slot);
 
 
-        //    var avadays = c.DayLists.ToList();
-        //    //var model = from r in db.DayLists
-        //    //            where r.ClinicId == c.Id
+                }
+                 
+                for (int i = (int)c.StartTime; i < (int)c.EndTime; i++)
+                {
+                    AvailableTimesList availableTimes = new AvailableTimesList { DayListId = item.Id, Taken = false, Slot_start = (TimeSlots)i };
 
-        //    //            select r;
-        //    //var x = model.ToList();
+                    db.AvailableTimesLists.Add(availableTimes);
 
-        //    var avatimesolts = c.TimeSlotLists.ToList();
+                }
 
-        //    var model = from r in db.Appointments
-        //                where r.ClinicId == c.Id
+                //for 12 pm to 8:00 Am (if exists) 
+                if (c.EndTime < c.StartTime)
+                {
+                    for (int i = (int)c.EndTime; i < (int)TimeSlots._23_00; i++)
+                    {
+                        AvailableTimesList availableTimes = new AvailableTimesList { DayListId = item.Id, Taken = false, Slot_start = (TimeSlots)i };
 
-        //                select r;
-        //    var appointments = model.ToList();
+                        db.AvailableTimesLists.Add(availableTimes);
 
-        //    var x = new List<TimeSlots>();
+                    }
 
-        // //   if (appointments == null) { return }
-        //    foreach (var item in appointments)
-        //    {
-        //      //  if item.TimeStart!=avatimesolts
+                    for (int i = (int)TimeSlots._00_00; i < (int)c.StartTime; i++)
+                    {
+                        AvailableTimesList availableTimes = new AvailableTimesList { DayListId =item.Id, Taken = false, Slot_start = (TimeSlots)i };
+
+                        db.AvailableTimesLists.Add(availableTimes);
+
+                    }
+
+                }
 
 
-        //    }
-
-
-        //}
+                db.SaveChanges();
+            } 
+        
+ 
+           
+        }
 
 
         [Authorize(Roles = "Doctor")]
@@ -174,10 +196,12 @@ namespace Clinic_Website.Controllers
         public ActionResult Edit(Clinic clinic, HttpPostedFileBase upload)
         {
             clinic.userId = User.Identity.GetUserId();
- 
+         
             if (ModelState.IsValid)
             {
                 string oldPath = Path.Combine(Server.MapPath("~/Uploads"), clinic.ClinicImage);
+                var checkdays = db.DayLists.Where(aa => aa.ClinicId == clinic.Id).ToList();
+                if (checkdays != null) { ProduceAvaApp(checkdays, clinic); }
 
                 if (upload != null)
                 {

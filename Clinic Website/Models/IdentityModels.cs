@@ -11,7 +11,10 @@ namespace Clinic_Website.Models
 {
     public class ApplicationUser : IdentityUser
     {
-      
+        public BloodType BloodType { get; set; }
+        public Gender Gender { get; set; }
+        public short Height { get; set; }
+        public short Weight { get; set; }
         public double Rate { get; set; }
         // public string UserType { get; set; }
         public virtual ICollection<Clinic> Clinics { get; set; }

@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -215,15 +216,15 @@ namespace WebApplication2.Controllers
         public ActionResult Contact(ContactModel contact)
         {
             var mail = new MailMessage();
-            var loginInfo = new NetworkCredential("ahmedalshora53@gmail.com", "Password");
+            var loginInfo = new NetworkCredential("ctmzg.2020@gmail.com", ConfigurationManager.AppSettings["EmailPassword"]);
             mail.From = new MailAddress(contact.Email);
-            mail.To.Add(new MailAddress("ahmedalshora53@gmail.com"));
+            mail.To.Add(new MailAddress("ctmzg.2020@gmail.com"));
             mail.Subject = contact.Subject;
             mail.IsBodyHtml = true;
 
-            string body = "Sender Name" + contact.Name + "<br>" +
-                        "Sender Email" + contact.Email + "<br>" +
-                        "Message Title" + contact.Subject + "<br>" +
+            string body = "Sender Name " + contact.Name + "<br>" +
+                        "Sender Email " + contact.Email + "<br>" +
+                        "Message Title " + contact.Subject + "<br>" +
                         "Message" + contact.Message;
             mail.Body = body;
 
