@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "App_graph";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Appointments graph</h2>
+
+
+<div style="margin:100px auto;">
+    <!-- start chart -->
+    <div class="chart " style="width:900px">
+        <canvas id="myChart"></canvas>
+    </div>
+    <!-- end chart -->
+
+</div>
+
+
+@section scriptsHere{
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <script>
+
+     
+
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ["Attended", "Not Attended", "cancelled"],
+                    data: [@ViewBag.Attended, @ViewBag.NotAttended, @ViewBag.Cancelled ],
+                    datasets: [{
+                        //label: '# of Votes',
+                        data: [@ViewBag.Attended, @ViewBag.NotAttended, @ViewBag.Cancelled ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132)',
+                            'rgba(54, 162, 235)',
+                            'rgba(255, 206, 86)',
+
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    legend: {
+                        labels: {
+                            fontColor: "black",
+                            fontSize: 14
+                        }
+                    },
+                }
+
+            });
+
+
+
+    </script>
+}

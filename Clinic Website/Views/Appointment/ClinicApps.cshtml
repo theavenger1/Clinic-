@@ -57,7 +57,7 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PatientState.Patient.UserName)
+                @Html.ActionLink(item.PatientState.Patient.UserName, "PatientProfileInformation", "Account", new { id = item.PatientState.PatientId }, new { @class = "btn btn-outline-primary" })
             </td>
 
 

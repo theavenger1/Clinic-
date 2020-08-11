@@ -20,14 +20,15 @@
 
                         </a>
 
-                        <ul class="dropdown-menu" style="background: none;">
-                            <li>
+                        <ul class="dropdown-menu shadow p-0" style="        background: rgba(255,255,255,0.8);   width:70px
+">
+                            <li style="">
                                 <div class="navbar-user">
                                     <div class="row">
 
-                                        <div>
-                                            <p class="text-right">
-                                                <strong>@CurrentUser.UserName</strong>
+                                        <div style="width:157px">
+                                            <p class="text-center bg-dark text-white">
+                                                <strong class="w-100">@CurrentUser.UserName</strong>
                                             </p>
 
 
@@ -35,20 +36,21 @@
                                             @if (User.IsInRole("Doctor"))
                                             {
                                                 //return the doctor clinics
-                        <a href="~/Clinics/YourClinics">Your Clinics</a> //return the clinics with it's applied patient
+                                        <a href="~/Clinics/YourClinics">Your Clinics</a> //return the clinics with it's applied patient
 
-                            <a href="~/Clinics/Create" class="">Add new Clinic</a> }
-                            else if (User.IsInRole("Patient"))
-                            {
-                                               <a href="~/Appointment/MyAppointments">My Appointments</a>
-                                                    <a href="~/PatientState/YourStates">Your States</a> }
-                                                else
-                                                {
-                                                         <a href="~/Roles/Create">Add role</a> 
-                        <strong>  <a href="~/Categories/Create" class="">Add Category</a> </strong>
-                                                <strong>    <a href="~/Home/GetDoctorsByAdmin" class=" ">All Doctors</a> </strong>
-                                                                        <a href="~/Home/GetPatientsByAdmin" class=" ">All Patient</a>}
+                                        <a href="~/Clinics/Create" class="">Add new Clinic</a> }
+                                    else if (User.IsInRole("Patient"))
+                                    {
+                                        <a href="~/Appointment/MyAppointments">My Appointments</a>
+                                                                <a href="~/PatientState/YourStates">Your States</a> }
+                                                            else
+                                                            {
+                                    
 
+                                                                <a href="~/AppHistory/app_graph" class=" ">Appointments Graph</a>
+                                                                                        <strong>  <a href="~/Categories/Create" class="">Add Category</a> </strong>
+                                                                                                                <strong>    <a href="~/Home/GetDoctorsByAdmin" class=" ">All Doctors</a> </strong>
+                                                                                                                                        <a href="~/Home/GetPatientsByAdmin" class=" ">All Patient</a>}
 
                                             <a href="~/Account/EditProfile">Edit Account</a>
                                             <a href="~/Account/EditInfo">Edit Info</a>

@@ -70,6 +70,22 @@ namespace Clinic_Website.Controllers
             return View();
         }
         [Authorize]
+        public ActionResult PatientProfileInformation(string id)
+        {
+            //   var UserID = User.Identity.GetUserId();
+            var user = db.Users.Find(id);
+            return View(user);
+        }
+
+        [Authorize]
+        public ActionResult ProfileInformation()
+        {
+            var UserID = User.Identity.GetUserId();
+            var user = db.Users.Find(UserID);
+            return View(user);
+        }
+
+        [Authorize]
         public ActionResult EditInfo()
         {
             return View();

@@ -179,6 +179,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppHistoryController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\AppStatusController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
@@ -1134,6 +1135,8 @@
     <Content Include="Views\Appointment\State_Apps.cshtml" />
     <Content Include="Views\Account\EditInfo.cshtml" />
     <Content Include="Views\Account\ProfileInformation.cshtml" />
+    <Content Include="Views\Account\PatientProfileInformation.cshtml" />
+    <Content Include="Views\AppHistory\App_graph.cshtml" />
     <None Include="Views\Home\home.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
